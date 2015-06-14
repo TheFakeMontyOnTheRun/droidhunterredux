@@ -2,12 +2,26 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>br.odb.droidhunter</groupId>
-  <artifactId>droid-hunter-core</artifactId>
+  <artifactId>droidhunter-core-java</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>droid-hunter-core</name>
+  <name>droidhunter-core-java</name>
   <url>http://maven.apache.org</url>
+
   <dependencies>
+
+    <dependency>
+      <groupId>br.odb</groupId>
+      <artifactId>gameapp</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>br.odb</groupId>
+      <artifactId>gameutils</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

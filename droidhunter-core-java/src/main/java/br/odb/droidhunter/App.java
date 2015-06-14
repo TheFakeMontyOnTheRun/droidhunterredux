@@ -1,13 +1,24 @@
 package br.odb.droidhunter;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
+import br.odb.gameapp.ConsoleApplication;
+
+public class App extends ConsoleApplication {
+
+	@Override
+	public ConsoleApplication init() {
+	
+		
+		
+		return super.init();
+	}
+	
+	@Override
+	public void log(String arg0, String arg1) {
+		
+	}
+
+	@Override
+	protected void doQuit() {
+				
+	}
 }
