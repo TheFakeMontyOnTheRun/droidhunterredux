@@ -1,5 +1,6 @@
 package br.odb.droidhunter.command;
 
+import br.odb.droidhunter.App;
 import br.odb.gameapp.ConsoleApplication;
 import br.odb.gameapp.UserCommandLineAction;
 
@@ -19,7 +20,9 @@ public class FireRiffleCommand extends UserCommandLineAction {
 	}
 
 	@Override
-	public void run(ConsoleApplication arg0, String arg1) throws Exception {
+	public void run(ConsoleApplication app, String arg1) throws Exception {
+		App game = (App) app;
+		game.gameWorld.jane37.riffle.use( game.gameWorld.jane37 );
 	}
 
 	@Override

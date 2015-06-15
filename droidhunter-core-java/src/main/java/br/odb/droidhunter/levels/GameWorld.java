@@ -1,7 +1,10 @@
 package br.odb.droidhunter.levels;
 
 import br.odb.droidhunter.characters.Node;
+import br.odb.droidhunter.characters.Obelisk;
 import br.odb.droidhunter.characters.Soldier;
+import br.odb.gameworld.CharacterActor;
+import br.odb.gameworld.Item;
 import br.odb.gameworld.Kind;
 import br.odb.gameworld.Location;
 import br.odb.utils.Direction;
@@ -33,12 +36,28 @@ public class GameWorld {
 		centerHall.setConnected( Direction.W, westRoom );
 		centerHall.setConnected( Direction.E, eastRoom );
 
-		
 		entryWay.setConnected( Direction.N, entryWay );
 		northRoom.setConnected( Direction.S, northRoom );
 		westRoom.setConnected( Direction.E, westRoom );
 		eastRoom.setConnected( Direction.W, eastRoom );
 		
 		entryWay.addCharacter( jane37 );
+		eastRoom.addCharacter( new Node( "node1", new Kind( "node") ) );
+		westRoom.addCharacter( new Obelisk( "obelisk1" ) );
+	}
+
+	public void update(int timeDelta ) {
+		for ( MineFloor f : floors ) {
+			for ( Location l : f.locations ) {
+				
+				for ( CharacterActor c : l.characters ) {
+					c.update( timeDelta );
+				}
+				
+				for ( Item i : l.getCollectableItems() ) {
+					i.update( timeDelta );
+				}
+			}			
+		}
 	}
 }

@@ -6,7 +6,7 @@ import br.odb.gameworld.Kind;
 
 public class Soldier extends CharacterActor {
 
-	PlasmaRifle riffle = new PlasmaRifle();
+	public final PlasmaRifle riffle = new PlasmaRifle();
 	
 	public Soldier(String name, Kind kind) {
 		super(name, kind);
