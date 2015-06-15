@@ -13,7 +13,15 @@ public class MineFloor extends Location {
 	
 	public MineFloor(String name) {
 		super(name);
-	
 	}
-
+	
+	public Location findLocationByName( String name ) {
+		for ( Location l : locations ) {
+			if ( l.getName().equalsIgnoreCase( name ) ) {
+				return l;
+			}
+		}
+		
+		return null;
+	}
 }

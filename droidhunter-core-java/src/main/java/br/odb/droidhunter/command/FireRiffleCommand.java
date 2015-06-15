@@ -3,9 +3,9 @@ package br.odb.droidhunter.command;
 import br.odb.gameapp.ConsoleApplication;
 import br.odb.gameapp.UserCommandLineAction;
 
-public class NewGameCommand extends UserCommandLineAction {
+public class FireRiffleCommand extends UserCommandLineAction {
 
-	public NewGameCommand() {
+	public FireRiffleCommand() {
 	}
 
 	@Override
@@ -24,6 +24,6 @@ public class NewGameCommand extends UserCommandLineAction {
 
 	@Override
 	public String toString() {
-		return "new-game";
+		return "fire";
 	}
 }
