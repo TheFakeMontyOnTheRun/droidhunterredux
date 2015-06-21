@@ -35,7 +35,7 @@ public class PlasmaPellet extends Item {
 	
 		super.update(milisseconds);
 		
-		for ( CharacterActor c : this.location.characters ) {
+		for ( CharacterActor c : this.location.getCharacters() ) {
 			c.setIsAlive( false );
 			setIsDepleted( true );
 			return;

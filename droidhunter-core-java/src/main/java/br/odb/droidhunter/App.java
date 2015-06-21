@@ -40,7 +40,7 @@ public class App extends ConsoleApplication {
 		getClient().printNormal( "Place:" );
 		getClient().printNormal( gameWorld.jane37.getLocation().getName() );
 		getClient().printNormal( "Present:" );
-		for ( CharacterActor c : gameWorld.jane37.getLocation().characters ) {
+		for ( CharacterActor c : gameWorld.jane37.getLocation().getCharacters() ) {
 			getClient().printNormal( c.getName() );	
 		}
 		getClient().printNormal( "Items:" );

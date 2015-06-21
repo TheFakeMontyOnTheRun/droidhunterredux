@@ -50,7 +50,7 @@ public class GameWorld {
 		for ( MineFloor f : floors ) {
 			for ( Location l : f.locations ) {
 				
-				for ( CharacterActor c : l.characters ) {
+				for ( CharacterActor c : l.getCharacters() ) {
 					c.update( timeDelta );
 				}
 				
