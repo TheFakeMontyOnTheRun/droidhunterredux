@@ -1,0 +1,276 @@
+<?xml version="1.0"?>
+
+<wml>
+
+<card id="0" title="menu" style="top:50%;left:20%" music="hunter/angstrontheme.wav">
+<img src="title.svg"/>
+<br/>
+<p>Droid Hunter</p>
+<br/>
+<a href="game.restart()">  New game</a>
+<a href="game.resume()">Back to game</a>
+<a href="#31">Networked game</a>
+<a href="#8">  Prologue</a>
+<a href="#2">  More info</a>
+<a href="game.exit()">    Quit</a>
+<on key="enter" sound="hunter/apert.wav"/>
+<on key="up" sound="hunter/alert.wav"/>
+<on key="down" sound="hunter/alert.wav"/>
+</card>
+
+<object mapfile="hunter/floor1.bzk2" watermark="common/watermark.svg" />
+
+<card id="2" title="info" style="top:0%;left:5%">
+<img src="title.svg"/>
+<img src="bg.svg"/>
+<p>Angstron 2</p>
+<br/><br/>
+<a href="#5">key configuration</a>
+<a href="#4">who created this?</a>
+<a href="back();">go to main menu</a>
+</card>
+
+<card id="3" title="options">
+<img src="title.svg"/>
+<img src="bg.svg"/>
+No options this time!
+<a href="back();">back to main menu</a>
+</card>
+
+<card id="4" title="about" style="left:0%">
+author:<br/>
+Daniel Monteiro<br/>
+with a nice help of:<br/>
+James B. Lynch<br/>
+no penguins were<br/>
+harmed on this<br/>
+game<br/>
+<br/>
+<a href="back();">back to info menu</a>
+</card>
+
+<card id="5" title="keys">
+<img src="title.svg"/>
+<img src="bg.svg"/>
+To use this game:<br/>
+enter=Fire rifle<br/>
+arrow=Turn around<br/>
+up=Walk forward<br/>
+down=Shields<br/>
+escape=back<br/>
+<a href="back();">back to info menu</a>
+</card>
+
+
+<card id="6" title="game over">
+<img src="gameover.svg"/>
+Game Over!<br/>
+<a href="#0">back to menu</a>
+</card>
+
+<card id="7" title="win">
+<img src="end2.svg"/>
+Poor jane27. Maybe she had the same dreams I have.<br/>
+She, in a way, had her own personality when trying<br/>
+to kill me<br/>
+<a href="#30">next</a>
+</card>
+
+<card id="8" title="chapter0">
+<img src="chapter0.svg"/>
+Prologue: Soldier Jane<br/>
+This is jane37.<br/>
+<a href="#9">next</a>
+</card>
+<card id="9" title="chapter0b">
+<img src="chapter0b.svg"/>
+She's just another replica.<br/>
+She serves in a platoon from the 7th generation<br/>
+of replicas.<br/>
+<a href="#12">continue</a>
+</card>
+
+<card id="10" title="keys">
+-"I've been waiting for you!<br/>
+...<br/>
+I'll be the only jane around here!<br/>
+Time to no longer excist!"<br/>
+Its jane26!<br/>
+She's behind it since the<br/>
+beggining!<br/>
+<a href="back();">ok</a>
+</card>
+<card id="11" title="keys">
+Not used.
+Get off my lawn!
+</card>
+
+<card id="12" title="keys">
+<img src="chapter0c.svg"/>
+But she's not concerned with her military missions<br/>
+She's in a mission looking to be someone<br/>
+37 is not a name and there's no need for it<br/>
+<a href="#0">next</a>
+</card>
+
+<card id="13" title="keys" music="hunter/mood.wav">
+<img src="chapter1.svg"/>
+Chapter 1: Arrival<br/>
+In the outer limits of the city, barely inside the<br/>
+protection of the crater, lies the #4 minning facility.<br/>
+A secret place where our glorious military forces not only<br/>
+extract our much needed plasma but also restless research<br/>
+our way out of here<br/>
+<br/>
+Also in there, happens to be a special weapon research lab,<br/>
+located in the 4th underground floor.<br/>
+The mission is very simple: infiltrate and re-gain control <br/>
+of the complex, erradicating if needed, the opposing force.
+<a href="#16">next</a>
+</card>
+<card id="14" title="keys">
+<img src="chapter1b.svg"/>
+<a href="#15">next</a>
+</card>
+<card id="15" title="keys">
+<img src="chapter1c.svg"/>
+
+<a href="#16">next</a>
+</card>
+<card id="16" title="keys" music="hunter/mood.wav">
+<img src="chapter1d.svg"/>
+# ready jane37<br/>
+ ok , roger that<br/>
+# engagement rules: terminate all<br/>
+ ok , rules acknowledged.<br/>
+ moving and charging<br/>
+ ready to start<br/>
+<a href="#1">next</a>
+</card>
+<card id="17" title="keys">
+<img src="chapter2.svg"/>
+Chapter 2: They're everywere<br/>
+as you see the big , dark vault, you realize<br/>
+you have no chance but try to use the plasma gun<br/>
+and the energy shield around your suit to reduce the<br/>
+fall speed<br/>
+<a href="#18">next</a>
+</card>
+<card id="18" title="keys">
+<img src="chapter2b.svg"/>
+An acurate shot is required for such a bold move...<br/>
+<a href="#19">next</a>
+</card>
+<card id="19" title="keys">
+<img src="chapter2c.svg"/>
+...and a brave diver.<br/>
+<a href="#20">next</a>
+</card>
+<card id="20" title="keys">
+<img src="chapter2d.svg"/>
+you managed to land safely<br/>
+<a href="#1">next</a>
+</card>
+<card id="21" title="keys">
+<img src="chapter3.svg"/>
+Chapter 3: Take it slower<br/>
+Again, a dark vault. looks deeper...<br/>
+<a href="#22">next</a>
+</card>
+<card id="22" title="keys">
+<img src="chapter3b.svg"/>
+"Gonna try shooting the walls and compensating<br/>
+the speed as I fall..."<br/>
+<a href="#23">next</a>
+</card>
+<card id="23" title="keys">
+<img src="chapter3c.svg"/>
+You fail to attain control over the fall speed<br/>
+<a href="#24">next</a>
+</card>
+<card id="24" title="keys">
+<img src="chapter3d.svg"/>
+And fall flat on the ground. Luckly, you are<br/>
+a tough girl and your suit absorbed most of the<br/>
+fall damage<br/>
+You're not hurt, but its not a good idea to try<br/>
+this again <br/>
+<a href="#1">next</a>
+</card>
+<card id="25" title="keys">
+<img src="chapter4.svg"/>
+Chapter 4: Are friends eletric?<br/>
+"Breathe...Breathe...calm down jane - this is manageable"<br/>
+now the bastards cant only rip me apart with their claws<br/>
+but also shoot plasma at me!<br/>
+What else can I expect?"<br/>
+<a href="#26">next</a>
+</card>
+<card id="26" title="keys">
+<img src="chapter4b.svg"/>
+Better get ready. You're almost there!<br/>
+<a href="#27">next</a>
+</card>
+
+<card id="27" title="keys">
+<img src="chapter4c.svg"/>
+Step out and face your Doom...<br/>
+<a href="#1">next</a>
+</card>
+<card id="28" title="keys">
+<img src="end1.svg"/>
+#You're mine!<br/>
+#Say you're mine!<br/>
+ Im yours to do what ever you want to please you<br/>
+<a href="#29">next</a>
+</card>
+
+<card id="29" title="keys" music="hunter/angstron2theme.wav">
+<img src="end1b.svg"/>
+#Good.<br/>
+#One less - 52 to go!<br/>
+The End<br/>
+<a href="#0;">back to menu</a>
+</card>
+
+<card id="30" title="keys" music="hunter/angstron2theme.wav" >
+<img src="end2b.svg" />
+Epilogue: Infinity<br/>
+But now its time to move on<br/>
+Time to decide the next stop<br/>
+Time to go free <br/>
+The End?<br/>
+<a href="#0;">back to menu</a>
+</card>
+
+<card id="31" title="keys" music="hunter/angstron2theme.wav">
+<img src="title.svg"/>
+<br/>
+<p>Multiplayer game</p>
+<p>this is still experimental and can freeze </p>
+<p>your system if the connection drops.</p>
+<p>Make sure you're connected to</p>
+<p>a TCP/IP network (only players in the same</p>
+<p>subnet can play togheter)</p>
+<p>The system will look freezed for a few seconds</p>
+<p>and the game will start. The host player must</p>
+<p>start the game before the guest start the game.</p>
+<br/>
+<a href="game.startnetworkedgame()">join tcp game</a>
+<a href="game.joinnetworkedgame()">start game</a>
+<a href="#0;">back to menu</a>
+</card>
+
+
+<card id="32" title="net_die"  >
+<img src="gameover.svg" />
+You died!<br/>
+<a href="game.waitfornetworkedplayer()">continue</a>
+</card>
+
+<card id="33" title="net_won"  >
+<img src="chapter1d.svg" />
+You killed your opponent!<br/>
+<a href="game.waifornetworkedplayer()">continue</a>
+</card>
+</wml>
