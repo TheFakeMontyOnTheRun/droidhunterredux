@@ -1,4 +1,4 @@
-package br.odb.droidhunter.levels;
+package br.odb.nodehunter.levels;
 
 public class HistoryPanel {
 	public final String caption;

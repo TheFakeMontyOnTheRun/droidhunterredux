@@ -1,4 +1,4 @@
-package br.odb.droidhunter.items;
+package br.odb.nodehunter.items;
 
 import br.odb.gameworld.CharacterActor;
 import br.odb.gameworld.Item;

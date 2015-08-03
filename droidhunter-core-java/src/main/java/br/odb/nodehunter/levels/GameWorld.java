@@ -1,12 +1,12 @@
-package br.odb.droidhunter.levels;
+package br.odb.nodehunter.levels;
 
-import br.odb.droidhunter.characters.Node;
-import br.odb.droidhunter.characters.Obelisk;
-import br.odb.droidhunter.characters.Soldier;
 import br.odb.gameworld.CharacterActor;
 import br.odb.gameworld.Item;
 import br.odb.gameworld.Kind;
 import br.odb.gameworld.Location;
+import br.odb.nodehunter.characters.Node;
+import br.odb.nodehunter.characters.Obelisk;
+import br.odb.nodehunter.characters.Soldier;
 import br.odb.utils.Direction;
 
 public class GameWorld {

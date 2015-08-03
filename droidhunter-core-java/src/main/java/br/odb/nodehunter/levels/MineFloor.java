@@ -1,4 +1,4 @@
-package br.odb.droidhunter.levels;
+package br.odb.nodehunter.levels;
 
 import java.util.ArrayList;
 import java.util.HashSet;

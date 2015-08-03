@@ -1,8 +1,8 @@
-package br.odb.droidhunter.characters;
+package br.odb.nodehunter.characters;
 
-import br.odb.droidhunter.items.PlasmaRifle;
 import br.odb.gameworld.CharacterActor;
 import br.odb.gameworld.Kind;
+import br.odb.nodehunter.items.PlasmaRifle;
 
 public class Soldier extends CharacterActor {
 

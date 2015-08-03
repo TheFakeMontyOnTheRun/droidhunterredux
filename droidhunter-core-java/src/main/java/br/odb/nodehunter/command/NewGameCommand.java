@@ -1,11 +1,11 @@
-package br.odb.droidhunter.command;
+package br.odb.nodehunter.command;
 
 import br.odb.gameapp.ConsoleApplication;
 import br.odb.gameapp.UserCommandLineAction;
 
-public class ToggleShieldCommand extends UserCommandLineAction {
+public class NewGameCommand extends UserCommandLineAction {
 
-	public ToggleShieldCommand() {
+	public NewGameCommand() {
 	}
 
 	@Override
@@ -24,7 +24,6 @@ public class ToggleShieldCommand extends UserCommandLineAction {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return "toggle-shield";
+		return "new-game";
 	}
 }

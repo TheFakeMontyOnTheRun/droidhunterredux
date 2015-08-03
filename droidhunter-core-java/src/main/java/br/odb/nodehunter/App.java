@@ -1,11 +1,11 @@
-package br.odb.droidhunter;
+package br.odb.nodehunter;
 
-import br.odb.droidhunter.command.FireRiffleCommand;
-import br.odb.droidhunter.command.MoveCommand;
-import br.odb.droidhunter.levels.GameWorld;
 import br.odb.gameapp.ConsoleApplication;
 import br.odb.gameworld.CharacterActor;
 import br.odb.gameworld.Item;
+import br.odb.nodehunter.command.FireRiffleCommand;
+import br.odb.nodehunter.command.MoveCommand;
+import br.odb.nodehunter.levels.GameWorld;
 
 public class App extends ConsoleApplication {
 

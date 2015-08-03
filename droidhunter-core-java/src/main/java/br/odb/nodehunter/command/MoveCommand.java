@@ -1,9 +1,9 @@
-package br.odb.droidhunter.command;
+package br.odb.nodehunter.command;
 
-import br.odb.droidhunter.App;
 import br.odb.gameapp.ConsoleApplication;
 import br.odb.gameapp.UserCommandLineAction;
 import br.odb.gameworld.Location;
+import br.odb.nodehunter.App;
 
 public class MoveCommand extends UserCommandLineAction {
 

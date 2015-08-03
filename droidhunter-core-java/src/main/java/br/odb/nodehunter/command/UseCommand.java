@@ -1,11 +1,11 @@
-package br.odb.droidhunter.command;
+package br.odb.nodehunter.command;
 
 import br.odb.gameapp.ConsoleApplication;
 import br.odb.gameapp.UserCommandLineAction;
 
-public class NewGameCommand extends UserCommandLineAction {
+public class UseCommand extends UserCommandLineAction {
 
-	public NewGameCommand() {
+	public UseCommand() {
 	}
 
 	@Override
@@ -15,7 +15,7 @@ public class NewGameCommand extends UserCommandLineAction {
 
 	@Override
 	public int requiredOperands() {
-		return 0;
+		return 1;
 	}
 
 	@Override
@@ -24,6 +24,6 @@ public class NewGameCommand extends UserCommandLineAction {
 
 	@Override
 	public String toString() {
-		return "new-game";
+		return "use";
 	}
 }
