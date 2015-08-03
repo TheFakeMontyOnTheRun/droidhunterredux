@@ -1,0 +1,46 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "br.odb.nodehunter"
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.android.support:support-v4:22.2.0'
+
+
+        compile files('libs/cardboard.jar')
+        compile files('libs/libprotobuf-java-2.6-nano.jar')
+
+        compile files('libs/vintage-engine-1.0-SNAPSHOT.jar')
+        compile files('libs/gameapp-1.0-SNAPSHOT.jar')
+        compile files('libs/gamerendering-1.0-SNAPSHOT.jar')
+        compile files('libs/gameutils-1.0-SNAPSHOT.jar')
+        compile files('libs/gameworld-1.0-SNAPSHOT.jar')
+        compile files('libs/level-editor-app-cli-1.0-SNAPSHOT.jar')
+        compile files('libs/level-editor-core-java-1.0-SNAPSHOT.jar')
+        compile files('libs/liboldfart-1.0-SNAPSHOT.jar')
+        compile files('libs/libscene-1.0-SNAPSHOT.jar')
+        compile files('libs/libstrip-1.0-SNAPSHOT.jar')
+        compile files('libs/libsvg-1.0-SNAPSHOT.jar')
+        compile files('libs/libworldproc-1.0-SNAPSHOT.jar')
+
+        compile 'com.google.android.gms:play-services:7.5.0'
+
+    }
