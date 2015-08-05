@@ -23,7 +23,7 @@ import br.odb.libscene.GroupSector;
 import br.odb.libscene.LightNode;
 import br.odb.libscene.World;
 import br.odb.libscene.builders.WorldLoader;
-import br.odb.libstrip.GeneralTriangleMesh;
+import br.odb.libstrip.TriangleMesh;
 import br.odb.libstrip.Material;
 import br.odb.libstrip.builders.GeneralTriangleFactory;
 import br.odb.utils.math.Vec3;
@@ -56,7 +56,7 @@ public class NodeHunterDesktop {
 
 	
 	public static void main(String[] args) {
-		final Editor3DViewer canvas = new Editor3DViewer();
+		final GameView3D canvas = new GameView3D();
 
 		new Thread(new Runnable() {
 			private World world;
@@ -125,14 +125,14 @@ public class NodeHunterDesktop {
 
 				WavefrontOBJLoader loader = new WavefrontOBJLoader(
 						new GeneralTriangleFactory());
-				ArrayList<GeneralTriangleMesh> mesh = (ArrayList<GeneralTriangleMesh>) loader
+				ArrayList<TriangleMesh> mesh = (ArrayList<TriangleMesh>) loader
 						.loadMeshes(new FileInputStream(System.getProperty("user.home")
 								+ "/gargoyle.obj"), mats);
 
 				canvas.setDefaultMeshForActor( mesh.get( 0 ) );
 			}
 			
-			private void createScene(Editor3DViewer canvas) {
+			private void createScene(GameView3D canvas) {
 			
 				GroupSector sr = (GroupSector) world.masterSector.getChild( "Cube" );
 				canvas.getCurrentCameraNode().setPositionFromGlobal( ( sr.getAbsolutePosition().add( new Vec3( sr.size.x / 2.0f, sr.size.y / 2.0f, sr.size.z / 2.0f ) ) ) );
