@@ -22,10 +22,11 @@ import javax.microedition.khronos.opengles.GL10;
 
 import br.odb.libscene.CameraNode;
 import br.odb.libscene.GroupSector;
+import br.odb.libscene.LightNode;
 import br.odb.libscene.SceneNode;
 import br.odb.libscene.World;
 import br.odb.libstrip.GeneralTriangle;
-import br.odb.libstrip.GeneralTriangleMesh;
+import br.odb.libstrip.TriangleMesh;
 import br.odb.libstrip.Material;
 import br.odb.utils.Color;
 import br.odb.utils.math.Vec3;
@@ -50,9 +51,9 @@ public class GLESRenderer implements GLSurfaceView.Renderer, SceneRenderer {
 
     final HashMap<Material, ArrayList< GLES1Triangle> > staticGeometryToAdd= new HashMap<>();
 
-    public final GLESMesh sampleEnemy = new GLESMesh( "sample-enemy" );
+    public final TriangleMesh sampleEnemy = new TriangleMesh( "sample-enemy" );
 
-    public final ArrayList<GLESMesh> meshes = new ArrayList<>();
+    public final ArrayList<TriangleMesh> meshes = new ArrayList<>();
 
     final public List<ActorSceneNode> actors = new ArrayList<>();
 
@@ -272,7 +273,7 @@ public class GLESRenderer implements GLSurfaceView.Renderer, SceneRenderer {
     /**
      * @param mesh
      */
-    private void drawMeshGLES2(GeneralTriangleMesh mesh) {
+    private void drawMeshGLES2(TriangleMesh mesh) {
         synchronized ( mesh ) {
             for (GeneralTriangle face : mesh.faces) {
                 ((GLES1Triangle) face).drawGLES2(maPositionHandle, colorHandle, this.mTextureCoordinateHandle);
@@ -379,38 +380,27 @@ public class GLESRenderer implements GLSurfaceView.Renderer, SceneRenderer {
 
         staticGeometryToAdd.clear();
 
-        for ( GLESVertexArrayManager manager : managers.values() ) {
-            manager.uploadToGPU();
-        }
-        ready = true;
+    for ( GLESVertexArrayManager manager : managers.values() ) {
+        manager.uploadToGPU();
+    }
+    ready = true;
+}
+
+    @Override
+    public void addTriangleToStaticScene(GeneralTriangle generalTriangle) {
+        GLES1Triangle glestrig = GLES1TriangleFactory.getInstance().makeTrigFrom( generalTriangle );
+        this.addToVA( glestrig );
     }
 
+    @Override
+    public void addLight(LightNode lightNode) {
 
-    public void loadGeometryFromScene(GroupSector sector) {
-
-        for (GeneralTriangle isf : sector.mesh.faces) {
-            ++polyCount;
-            changeHue((GLES1Triangle) isf);
-            isf.flush();
-            addToVA((GLES1Triangle) isf);
-        }
-
-        for (SceneNode sr : sector.getSons()) {
-            if (sr instanceof GroupSector) {
-                loadGeometryFromScene((GroupSector) sr);
-            }
-        }
     }
+
 
     @Override
     public void setAsReady() {
         ready = true;
-    }
-
-    @Override
-    public void setScene(World scene) {
-        loadGeometryFromScene(scene.masterSector);
-        flush();
     }
 
     @Override
@@ -420,11 +410,11 @@ public class GLESRenderer implements GLSurfaceView.Renderer, SceneRenderer {
 
     @Override
     public CameraNode getCurrentCameraNode() {
-        return null;
+        return this.camera;
     }
 
     @Override
-    public void setDefaultMeshForActor(GeneralTriangleMesh generalTriangleMesh) {
+    public void setDefaultMeshForActor(TriangleMesh generalTriangleMesh) {
 
     }
 }

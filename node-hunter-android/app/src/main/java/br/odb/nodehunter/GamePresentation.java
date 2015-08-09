@@ -46,11 +46,5 @@ public class GamePresentation extends ScenePresenter {
 //        actor.angleXZ = angleXZ;
 //        renderer.actors.add( actor );
 //    }
-
-    int polyCount = 0;
-
-    public void setScene(World scene) {
-        renderer.setScene( scene );
-    }
 }
 

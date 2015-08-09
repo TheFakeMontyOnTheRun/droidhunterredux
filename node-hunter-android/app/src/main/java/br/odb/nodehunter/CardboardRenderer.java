@@ -4,7 +4,6 @@ import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.util.Log;
-import android.view.KeyEvent;
 
 import com.google.vrtoolkit.cardboard.CardboardView;
 import com.google.vrtoolkit.cardboard.Eye;
@@ -23,17 +22,14 @@ import javax.microedition.khronos.egl.EGLConfig;
 
 import br.odb.gamelib.android.geometry.GLES1Triangle;
 import br.odb.gamelib.android.geometry.GLES1TriangleFactory;
-import br.odb.gamelib.android.geometry.GLESMesh;
 import br.odb.gamelib.android.geometry.GLESVertexArrayManager;
 import br.odb.liboldfart.WavefrontMaterialLoader;
 import br.odb.liboldfart.WavefrontOBJLoader;
 import br.odb.libscene.CameraNode;
-import br.odb.libscene.GroupSector;
-import br.odb.libscene.SceneNode;
-import br.odb.libscene.World;
+import br.odb.libscene.LightNode;
 import br.odb.libstrip.GeneralTriangle;
-import br.odb.libstrip.GeneralTriangleMesh;
 import br.odb.libstrip.Material;
+import br.odb.libstrip.TriangleMesh;
 import br.odb.utils.Color;
 import br.odb.utils.math.Vec3;
 import br.odb.vintage.SceneRenderer;
@@ -68,8 +64,8 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 
     private float[] forwardVector = new float[ 3 ];
 
-    public final ArrayList<GLESMesh> meshes = new ArrayList<>();
-    public final GLESMesh sampleEnemy = new GLESMesh( "sample-enemy" );
+    public final ArrayList<TriangleMesh> meshes = new ArrayList<>();
+    public final TriangleMesh sampleEnemy = new TriangleMesh( "sample-enemy" );
     final public List<ActorSceneNode> actors = new ArrayList<>();
 
     volatile boolean ready = false;
@@ -225,12 +221,12 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     }
 
     public void initDefaultMeshForActor() throws IOException {
-        GeneralTriangleMesh enemy;
+        TriangleMesh enemy;
         WavefrontMaterialLoader matLoader = new WavefrontMaterialLoader();
         List<Material> mats = matLoader.parseMaterials( context.getAssets().open( "gargoyle.mtl" ) );
 
         WavefrontOBJLoader loader = new WavefrontOBJLoader( new GLES1TriangleFactory() );
-        ArrayList<GeneralTriangleMesh> mesh = (ArrayList<GeneralTriangleMesh>) loader.loadMeshes( context.getAssets().open("gargoyle.obj"), mats );
+        ArrayList<TriangleMesh> mesh = (ArrayList<TriangleMesh>) loader.loadMeshes( context.getAssets().open("gargoyle.obj"), mats );
 
         enemy = mesh.get( 0 );
 
@@ -304,7 +300,7 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     /**
      * @param mesh
      */
-    private void drawMeshGLES2(GeneralTriangleMesh mesh) {
+    private void drawMeshGLES2(TriangleMesh mesh) {
         synchronized ( mesh ) {
             for (GeneralTriangle face : mesh.faces) {
                 ((GLES1Triangle) face).drawGLES2(positionParam, colorParam, -1);
@@ -327,11 +323,6 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     public void onFinishFrame(Viewport viewport) {
     }
 
-    public void setScene(World scene) {
-        loadGeometryFromScene(scene.masterSector);
-        flush();
-    }
-
     @Override
     public void spawnDefaultActor(Vec3 vec3, float v) {
 
@@ -343,7 +334,7 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     }
 
     @Override
-    public void setDefaultMeshForActor(GeneralTriangleMesh generalTriangleMesh) {
+    public void setDefaultMeshForActor(TriangleMesh generalTriangleMesh) {
 
     }
 
@@ -357,27 +348,12 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
         staticGeometryToAdd.get( face.material ).add(face);
     }
 
-    public void loadGeometryFromScene(GroupSector sector) {
-
-        for (GeneralTriangle isf : sector.mesh.faces) {
-            changeHue((GLES1Triangle) isf);
-            isf.flush();
-            addToVA((GLES1Triangle) isf);
-        }
-
-        for (SceneNode sr : sector.getSons()) {
-            if (sr instanceof GroupSector) {
-                loadGeometryFromScene((GroupSector) sr);
-            }
-        }
-    }
-
     @Override
     public void setAsReady() {
         ready = true;
     }
 
-    public void changeHue(GLES1Triangle trig) {
+    public GLES1Triangle changeHue(GLES1Triangle trig) {
         trig.material = new Material(null, new Color(trig.material.mainColor), null, null );
 
         switch (trig.hint) {
@@ -400,6 +376,8 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
                 trig.material.mainColor.multiply(0.1f);
                 break;
         }
+
+        return trig;
     }
 
     void initManagerForMaterial( Material mat, int polys ) {
@@ -408,7 +386,7 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
         managers.put( mat, manager );
     }
 
-
+    @Override
     public void flush() {
 
         for ( Material m : staticGeometryToAdd.keySet() ) {
@@ -426,6 +404,18 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
         }
 
         staticGeometryToAdd.clear();
+        Log.i( "Renderer", "Flushed" );
+    }
+
+    @Override
+    public void addTriangleToStaticScene(GeneralTriangle generalTriangle) {
+        GLES1Triangle glestrig = changeHue( GLES1TriangleFactory.getInstance().makeTrigFrom( generalTriangle ) );
+        this.addToVA( glestrig );
+    }
+
+    @Override
+    public void addLight(LightNode lightNode) {
+
     }
 
     private void addToVAForReal(GLES1Triangle face) {

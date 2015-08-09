@@ -46,7 +46,7 @@ public class PlayGameActivity extends CardboardActivity implements FileServerDel
         this.renderer = new CardboardRenderer( this );
         presenter = new GamePresentation( renderer );
         cardboardView.setRenderer( renderer );
-        LevelLoader loader = new LevelLoader( engine, presenter, this, "floor1.opt.ser" );
+        LevelLoader loader = new LevelLoader( engine, presenter, this, "prison.opt.ser" );
         loader.execute();
     }
 

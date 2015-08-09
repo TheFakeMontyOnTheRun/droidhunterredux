@@ -75,41 +75,32 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 		this.addKeyListener(this);
 
 		tesselator = new SceneTesselator(new GeneralTriangleFactory());
-		// SpaceRegion sr = new SpaceRegion( "dummy" );
-		// sr.size.scale( 10 );
-		// for ( Direction d : Direction.values() ) {
-		// for ( GeneralTriangle trig : tesselator.generateQuadFor( d, sr ) ) {
-		// cube.add( changeHue( trig ) );
-		// }
-		// }
-
-		// new Thread( this ).start();
 	}
 
 	public GeneralTriangle changeHue(GeneralTriangle trig) {
 		trig.material = new Material(null, new Color(trig.material.mainColor),
 				null, null);
 
-		// switch (trig.hint) {
-		// case W:
-		// trig.material.mainColor.multiply(0.1f);
-		// break;
-		// case E:
-		// trig.material.mainColor.multiply(0.4f);
-		// break;
-		// case N:
-		// trig.material.mainColor.multiply(0.2f);
-		// break;
-		// case S:
-		// trig.material.mainColor.multiply(0.6f);
-		// break;
-		// case FLOOR:
-		// trig.material.mainColor.multiply(0.9f);
-		// break;
-		// case CEILING:
-		// trig.material.mainColor.multiply(0.3f);
-		// break;
-		// }
+		 switch (trig.hint) {
+			 case W:
+			 trig.material.mainColor.multiply(0.1f);
+			 break;
+			 case E:
+			 trig.material.mainColor.multiply(0.4f);
+			 break;
+			 case N:
+			 trig.material.mainColor.multiply(0.2f);
+			 break;
+			 case S:
+			 trig.material.mainColor.multiply(0.6f);
+			 break;
+			 case FLOOR:
+			 trig.material.mainColor.multiply(0.9f);
+			 break;
+			 case CEILING:
+			 trig.material.mainColor.multiply(0.3f);
+			 break;
+		 }
 
 		Vec3 normal = trig.makeNormal();
 
@@ -121,23 +112,6 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 
 		return trig;
 
-	}
-
-	public void loadGeometryFromScene(GroupSector sector) {
-
-		for (SceneNode sr : sector.getSons()) {
-			if ( sr instanceof MeshNode ) {
-				for (GeneralTriangle isf : ((MeshNode)sr).mesh.faces) {
-
-					changeHue(isf);
-					polysToRender.add(isf);
-				}				
-			} else if (sr instanceof GroupSector) {
-				loadGeometryFromScene((GroupSector) sr);
-			} else if (sr instanceof LightNode) {
-				addLight((LightNode) sr);
-			}
-		}
 	}
 
 	public void addLight(LightNode ln) {
@@ -381,8 +355,6 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 				visitingSon = (Sector) world.masterSector
 						.getChild(visitingSon.links[0]);
 			}
-
-			this.loadGeometryFromScene(world.masterSector);
 		}
 	}
 
@@ -392,7 +364,6 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 		this.polysToRender.clear();
 		this.world = world;
 		world.masterSector.size.set(1024.0f, 1024.0f, 1024.0f);
-		this.loadGeometryFromScene(world.masterSector);
 	}
 
 	@Override
@@ -424,5 +395,10 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 	public void setDefaultMeshForActor(TriangleMesh arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void addTriangleToStaticScene(GeneralTriangle gt) {
+		this.polysToRender.add( changeHue( gt ) );		
 	}
 }
