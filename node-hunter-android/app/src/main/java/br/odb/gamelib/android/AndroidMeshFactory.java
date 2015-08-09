@@ -2,9 +2,8 @@ package br.odb.gamelib.android;
 
 import br.odb.gamelib.android.geometry.GLES1Triangle;
 import br.odb.gamelib.android.geometry.GLES1TriangleFactory;
-import br.odb.gamelib.android.geometry.GLESMesh;
 import br.odb.libstrip.GeneralTriangle;
-import br.odb.libstrip.GeneralTriangleMesh;
+import br.odb.libstrip.TriangleMesh;
 import br.odb.libstrip.Material;
 import br.odb.utils.math.Vec3;
 
@@ -16,8 +15,8 @@ public class AndroidMeshFactory {
 		return GLES1TriangleFactory.getInstance().makeTrig( x, y, z, x2, y2, z2, x3, y3, z3, color, defaultLightVector );
 	}
 
-	public GeneralTriangleMesh emptyMeshNamed(String name ) {
-		return new GLESMesh( name );
+	public TriangleMesh emptyMeshNamed(String name ) {
+		return new TriangleMesh( name );
 	}
 
 	public GeneralTriangle[][] newTriangleGroups(int i) {

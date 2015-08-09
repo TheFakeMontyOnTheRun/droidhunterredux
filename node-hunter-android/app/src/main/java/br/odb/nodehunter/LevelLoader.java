@@ -64,12 +64,12 @@ public class LevelLoader extends AsyncTask<Void, Void, Void> {
         super.onPostExecute(aVoid);
 
         engine.makeNewSessionFor(null, world, presenter);
-
-        for ( SceneNode sn : world.getAllRegionsAsList() ) {
-            if ( sn instanceof GroupSector) {
-                ((GroupSector) sn ).clearMeshes();
-            }
-        }
+//
+//        for ( SceneNode sn : world.getAllRegionsAsList() ) {
+//            if ( sn instanceof GroupSector) {
+//                ((GroupSector) sn ).clearMeshes();
+//            }
+//        }
 
         presenter.renderer.getCurrentCameraNode().angleXZ = 180.0f;
 
