@@ -49,8 +49,10 @@ public class GLES1TriangleFactory extends GeneralTriangleFactory {
 
 	public GLES1Triangle makeTrigFrom(GeneralTriangle gt) {
 
+		GLES1Triangle toReturn = makeTrig( gt.x0, gt.y0, gt.z0, gt.x1, gt.y1, gt.z1, gt.x2, gt.y2, gt.z2, gt.material, null);
 
-            return makeTrig( gt.x0, gt.y0, gt.z0, gt.x1, gt.y1, gt.z1, gt.x2, gt.y2, gt.z2, gt.material, null);
+		toReturn.hint = gt.hint;
 
+		return toReturn;
 	}
 }
