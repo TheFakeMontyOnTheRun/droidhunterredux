@@ -37,13 +37,14 @@ public class PlayGameActivity extends CardboardActivity implements FileServerDel
         cardboardView = (CardboardView) findViewById(R.id.cardboard_view);
         setCardboardView(cardboardView);
 
-        initGameEngine();
+        initGameEngine( getIntent().getBooleanExtra( "VRMODE", false ) );
     }
 
-    private void initGameEngine() {
-        cardboardView.setVRModeEnabled( false );
+    private void initGameEngine( boolean shouldUseVRMode ) {
+        cardboardView.setVRModeEnabled( shouldUseVRMode );
         engine = new GameEngine();
         this.renderer = new CardboardRenderer( this );
+        renderer.useVRMode = shouldUseVRMode;
         presenter = new GamePresentation( renderer );
         cardboardView.setRenderer( renderer );
         LevelLoader loader = new LevelLoader( engine, presenter, this, "prison.opt.ser" );

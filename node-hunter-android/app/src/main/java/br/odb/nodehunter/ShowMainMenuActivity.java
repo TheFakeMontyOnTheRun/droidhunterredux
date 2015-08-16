@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 
 public class ShowMainMenuActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -14,7 +15,7 @@ public class ShowMainMenuActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_main_menu);
 
-        findViewById( R.id.btnStartGame ).setOnClickListener( this );
+        findViewById( R.id.btnStartGame ).setOnClickListener(this);
     }
 
     @Override
@@ -41,6 +42,10 @@ public class ShowMainMenuActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View view) {
-        startActivity(new Intent(this, PlayGameActivity.class));
+
+        boolean enableVRMode = ((CheckBox) findViewById( R.id.chkVRMode ) ).isChecked();
+        Intent intent = new Intent(this, PlayGameActivity.class);
+        intent.putExtra( "VRMODE", enableVRMode );
+        startActivity( intent );
     }
 }

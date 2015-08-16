@@ -13,6 +13,7 @@ import br.odb.libscene.World;
 import br.odb.libscene.builders.WorldLoader;
 import br.odb.libscene.util.SceneTesselator;
 import br.odb.utils.FileServerDelegate;
+import br.odb.utils.math.Vec3;
 import br.odb.vintage.GameEngine;
 import br.odb.vintage.ScenePresenter;
 
@@ -86,10 +87,10 @@ public class LevelLoader extends AsyncTask<Void, Void, Void> {
                 presenter.renderer.getCurrentCameraNode().localPosition
                         .set(((GroupSector) srs.get(index)).getAbsoluteCenter());
 
-//                Vec3 pos = new Vec3(presenter.renderer.getCurrentCameraNode().localPosition);
-//                view.spawnActor(pos.add(new Vec3(10.0f, 0.0f, 10.0f)), 180.0f);
-//                view.spawnActor(pos.add(new Vec3(30.0f, 0.0f, 30.0f)), 0.0f);
-//                view.spawnActor(pos.add(new Vec3(20.0f, 0.0f, 20.0f)), 90.0f);
+                Vec3 pos = new Vec3(presenter.renderer.getCurrentCameraNode().localPosition);
+                presenter.spawnActor(pos.add(new Vec3(10.0f, 0.0f, 10.0f)), 180.0f);
+                presenter.spawnActor(pos.add(new Vec3(30.0f, 0.0f, 30.0f)), 0.0f);
+                presenter.spawnActor(pos.add(new Vec3(20.0f, 0.0f, 20.0f)), 90.0f);
                 presenter.renderer.setAsReady();
                 return;
             }

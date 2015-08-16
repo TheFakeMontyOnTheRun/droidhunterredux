@@ -43,7 +43,7 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     public final CameraNode cameraNode = new CameraNode( "mainCamera" );
 
     private static final float Z_NEAR = 0.1f;
-    private static final float Z_FAR = 10000.0f;
+    private static final float Z_FAR = 1000.0f;
     private static final float CAMERA_Z = 0.01f;
 
     final HashMap<Material, GLESVertexArrayManager > managers = new HashMap<>();
@@ -164,6 +164,12 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 
         // Object first appears directly in front of user.
         checkGLError("onSurfaceCreated");
+
+        try {
+            initDefaultMeshForActor();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -274,6 +280,12 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     public void transform( Eye eye, float angleXZ, Vec3 trans) {
         float[] perspective = eye.getPerspective(Z_NEAR, Z_FAR);
         Matrix.multiplyMM(view.values, 0, eye.getEyeView(), 0, camera.values, 0);
+
+        if (!useVRMode ) {
+            Matrix.rotateM(view.values, 0, -headAngle, 0, 1.0f, 0);
+            Matrix.rotateM(view.values, 0, cameraNode.angleXZ, 0, 1.0f, 0);
+        }
+
         Matrix.translateM(view.values, 0, -cameraNode.localPosition.x, -cameraNode.localPosition.y, -cameraNode.localPosition.z);
         Matrix.translateM(view.values, 0, trans.x, trans.y, trans.z);
         Matrix.multiplyMM(modelViewProjection.values, 0, perspective, 0, view.values, 0);
@@ -288,13 +300,6 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
                 drawMeshGLES2(sampleEnemy);
             }
         }
-    }
-
-    public void spawnActor(Vec3 v, float angleXZ) {
-        ActorSceneNode actor = new ActorSceneNode( "actor@" + v.toString() );
-        actor.localPosition.set( v );
-        actor.angleXZ = angleXZ;
-        actors.add( actor );
     }
 
     /**
@@ -405,6 +410,11 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 
         staticGeometryToAdd.clear();
         Log.i( "Renderer", "Flushed" );
+    }
+
+    @Override
+    public void addActor(ActorSceneNode actorSceneNode) {
+        this.actors.add( actorSceneNode );
     }
 
     @Override
