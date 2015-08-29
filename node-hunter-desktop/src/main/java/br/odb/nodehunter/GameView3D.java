@@ -392,8 +392,8 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 	}
 
 	@Override
-	public void setDefaultMeshForActor(TriangleMesh arg0) {
-		// TODO Auto-generated method stub
+	public void setDefaultMeshForActor(TriangleMesh mesh) {
+		this.defaultActorMesh.addAll( mesh.faces );
 		
 	}
 

@@ -141,8 +141,7 @@ public class NodeHunterDesktop {
 				
 				light0.setPositionFromGlobal( canvas.getCurrentCameraNode().getAbsolutePosition() );
 				canvas.addLight( light0 );
-				//canvas.spawnDefaultActor( canvas.getCurrentCameraNode().localPosition.add( new Vec3( 5.0f, 0.0f, 5.0f ) ), 0.0f );
-				//canvas.spawnDefaultActor( new Vec3( 0.0f, 0.0f, 0.0f ), 0.0f );
+				canvas.spawnDefaultActor( canvas.getCurrentCameraNode().localPosition.add( new Vec3( 5.0f, 0.0f, 5.0f ) ), 0.0f );
 			}
 		}).start();
 	}
