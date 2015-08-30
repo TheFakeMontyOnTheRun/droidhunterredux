@@ -14,6 +14,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".ShowMainMenuActivity"
+            android:screenOrientation="landscape"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +25,7 @@
 
         <activity
             android:name=".PlayGameActivity"
+            android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_play_game"
             android:parentActivityName=".ShowMainMenuActivity"
