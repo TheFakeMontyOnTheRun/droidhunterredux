@@ -46,6 +46,7 @@ import br.odb.utils.Direction;
 import br.odb.utils.math.Vec3;
 // GL2 constants
 import br.odb.vintage.SceneRenderer;
+import br.odb.vintage.actor.ActorSceneNode;
 
 public class GameView3D extends GLCanvas implements GLEventListener,
 		KeyListener, SceneRenderer {
@@ -58,7 +59,7 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 	final List<GeneralTriangle> polysToRender = new ArrayList<>();
 	final List<GeneralTriangle> defaultActorMesh = new ArrayList<>();
 	final List<LightNode> lights = new ArrayList<>();
-	final List<DirectedSceneNode> actors = new ArrayList<>();
+	final List<ActorSceneNode> actors = new ArrayList<>();
 
 	float[] colorWhite = { 1.0f, 1.0f, 1.0f, 1.0f };
 
@@ -206,7 +207,7 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 		gl.glBegin(GL_TRIANGLES);
 
 		synchronized (actors) {
-			for (DirectedSceneNode p : actors) {
+			for (ActorSceneNode p : actors) {
 				drawCube(gl, p.localPosition);
 			}
 		}
@@ -275,7 +276,7 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 
 		case KeyEvent.VK_P:
 
-			actors.add(new DirectedSceneNode(defaultCameraNode));
+			actors.add(new ActorSceneNode(defaultCameraNode));
 			this.repaint();
 			break;
 		case KeyEvent.VK_LEFT:
@@ -368,7 +369,7 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 
 	@Override
 	public void spawnDefaultActor(Vec3 pos, float angleXZ) {
-		DirectedSceneNode dsn = new DirectedSceneNode("actor");
+		ActorSceneNode dsn = new ActorSceneNode("actor");
 		dsn.localPosition.set(pos);
 		dsn.angleXZ = angleXZ;
 		actors.add(dsn);
@@ -400,5 +401,10 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 	@Override
 	public void addTriangleToStaticScene(GeneralTriangle gt) {
 		this.polysToRender.add( changeHue( gt ) );		
+	}
+
+	@Override
+	public void addActor(ActorSceneNode actor) {
+		this.actors.add( actor );		
 	}
 }
