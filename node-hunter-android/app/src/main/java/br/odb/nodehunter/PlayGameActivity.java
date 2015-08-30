@@ -63,6 +63,18 @@ public class PlayGameActivity extends CardboardActivity implements FileServerDel
         CameraNode cameraNode = presenter.renderer.getCurrentCameraNode();
 
         switch (keyCode) {
+
+            case KeyEvent.KEYCODE_BUTTON_A:
+                break;
+
+            case KeyEvent.KEYCODE_BUTTON_L1:
+                cameraNode.onStrafeLeft();
+                break;
+
+            case KeyEvent.KEYCODE_BUTTON_R1:
+                cameraNode.onStrafeRight();
+                break;
+
             case KeyEvent.KEYCODE_DPAD_LEFT:
                 cameraNode.onLeft();
                 break;
