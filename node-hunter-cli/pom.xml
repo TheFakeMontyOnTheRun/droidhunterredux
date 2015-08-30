@@ -39,7 +39,7 @@
 				exec-maven-plugin
 			</artifactId>
 			<configuration>
-				<mainClass>br.odb.droidhunter.DroidHunterRedux1D</mainClass>
+				<mainClass>br.odb.nodehunter.NodeHunterCli</mainClass>
 			</configuration>
 			</plugin>
 		</plugins>
