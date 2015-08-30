@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>br.odb.droidhunter</groupId>
-  <artifactId>droidhunter-redux-3d</artifactId>
+  <groupId>br.odb.nodehunter</groupId>
+  <artifactId>nodehunter-3dengine</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>droidhunter-redux-3d</name>
+  <name>nodehunter-3dengine</name>
   <url>http://www.montyprojects.com</url>
   <dependencies>
     <dependency>
@@ -22,8 +22,8 @@
 	</dependency>
     
 	<dependency>
-		<groupId> br.odb.droidhunter </groupId>
-		<artifactId>droidhunter-core-java</artifactId>
+		<groupId> br.odb.nodehunter </groupId>
+		<artifactId>nodehunter-core-java</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</dependency>
     
@@ -50,22 +50,5 @@
 	<properties>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
-
 	</properties>
-	
-	<build>
-		<plugins>
-			<plugin>
-			<groupId>
-				org.codehaus.mojo
-			</groupId>
-			<artifactId>
-				exec-maven-plugin
-			</artifactId>
-			<configuration>
-				<mainClass>br.odb.droidhunter.DroidHunterRedux3D</mainClass>
-			</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
