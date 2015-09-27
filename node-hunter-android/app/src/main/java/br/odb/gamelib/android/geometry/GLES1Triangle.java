@@ -24,6 +24,7 @@ public class GLES1Triangle extends GeneralTriangle {
     private FloatBuffer textureBuffer;
     private FloatBuffer colorBuffer;
     private FloatBuffer vertexBuffer;
+    private FloatBuffer normalBuffer;
 
     private float[] color = new float[12];
     public int light = 0;
@@ -65,7 +66,14 @@ public class GLES1Triangle extends GeneralTriangle {
         super.flush();
 
         float[] vertices = getVertexData();
+        Vec3 normal = makeNormal();
+        float[] normals = new float[ 3 ];
         float[] oneColor;
+        float[] normalData;
+
+        normals[ 0 ] = normal.x;
+        normals[ 1 ] = normal.y;
+        normals[ 2 ] = normal.z;
 
         if (material != null) {
             oneColor = material.mainColor.getFloatData();
@@ -79,11 +87,29 @@ public class GLES1Triangle extends GeneralTriangle {
             }
         }
 
+        normalData = new float[ 9 ];
+
+        normalData[ 0 ] = normals[ 0 ];
+        normalData[ 1 ] = normals[ 1 ];
+        normalData[ 2 ] = normals[ 2 ];
+        normalData[ 3 ] = normals[ 0 ];
+        normalData[ 4 ] = normals[ 1 ];
+        normalData[ 5 ] = normals[ 2 ];
+        normalData[ 6 ] = normals[ 0 ];
+        normalData[ 7 ] = normals[ 1 ];
+        normalData[ 8 ] = normals[ 2 ];
+
         ByteBuffer byteBuf = ByteBuffer.allocateDirect(vertices.length * 4);
         byteBuf.order(ByteOrder.nativeOrder());
         vertexBuffer = byteBuf.asFloatBuffer();
         vertexBuffer.put(vertices);
         vertexBuffer.position(0);
+
+        byteBuf = ByteBuffer.allocateDirect(normalData.length * 4);
+        byteBuf.order(ByteOrder.nativeOrder());
+        normalBuffer = byteBuf.asFloatBuffer();
+        normalBuffer.put(normalData);
+        normalBuffer.position(0);
 
         byteBuf = ByteBuffer.allocateDirect(color.length * 4);
         byteBuf.order(ByteOrder.nativeOrder());
@@ -117,17 +143,20 @@ public class GLES1Triangle extends GeneralTriangle {
         return t;
     }
 
-    public void drawGLES2(int vertexHandle, int colorHandle, int textureHandle) {
+    public void drawGLES2(int vertexHandle, int colorHandle, int normalHandle, int textureHandle) {
 
-        float[] vertices = getVertexData();
+        GLES20.glVertexAttribPointer(vertexHandle, 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
 
-        GLES20.glVertexAttribPointer(vertexHandle, vertices.length / 3,
-                GLES20.GL_FLOAT, false, 0, vertexBuffer);
         GLES20.glEnableVertexAttribArray(vertexHandle);
 
-        GLES20.glVertexAttribPointer(colorHandle, 4, GLES20.GL_FLOAT, false, 0,
-                colorBuffer);
+        GLES20.glVertexAttribPointer(colorHandle, 4, GLES20.GL_FLOAT, false, 0, colorBuffer);
+
         GLES20.glEnableVertexAttribArray(colorHandle);
+
+        GLES20.glVertexAttribPointer(normalHandle, 3, GLES20.GL_FLOAT, false, 0, normalBuffer);
+
+        GLES20.glEnableVertexAttribArray(normalHandle);
+
 
         if (textureHandle != -1) {
 
@@ -155,7 +184,7 @@ public class GLES1Triangle extends GeneralTriangle {
 
         vn = v1.crossProduct(v2);
 
-        return vn;
+        return vn.normalized();
     }
 
     // ------------------------------------------------------------------------------------------------------------

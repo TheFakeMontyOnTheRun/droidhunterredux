@@ -37,12 +37,12 @@ public class PlayGameActivity extends CardboardActivity implements FileServerDel
         cardboardView = (CardboardView) findViewById(R.id.cardboard_view);
         setCardboardView(cardboardView);
 
-        initGameEngine( getIntent().getBooleanExtra( "VRMODE", false ) );
+        initGameEngine( getIntent().getBooleanExtra( "VRMODE", false ), getIntent().getBooleanExtra( "MULTIPLAYER", false ) );
     }
 
-    private void initGameEngine( boolean shouldUseVRMode ) {
+    private void initGameEngine( boolean shouldUseVRMode, boolean runInMultiplayer ) {
         cardboardView.setVRModeEnabled( shouldUseVRMode );
-        engine = new GameEngine();
+        engine = new GameEngine( runInMultiplayer );
         this.renderer = new CardboardRenderer( this );
         renderer.useVRMode = shouldUseVRMode;
         presenter = new GamePresentation( renderer );

@@ -10,6 +10,10 @@ import br.odb.vintage.ScenePresenter;
 
 public class NodeHunter3D extends GameEngine implements ApplicationClient {
 
+	NodeHunter3D(boolean multiplayerEnabled) {
+		super(multiplayerEnabled);
+	}
+
 	App game = new App();
 	
 	public void makeNewSessionFor(Play play, World scene,

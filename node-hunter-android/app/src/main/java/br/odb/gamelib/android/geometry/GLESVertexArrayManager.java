@@ -15,6 +15,7 @@ public class GLESVertexArrayManager {
     private FloatBuffer colorBuffer;
     private FloatBuffer vertexBuffer;
     private FloatBuffer textureBuffer;
+    private FloatBuffer normalBuffer;
     private int numFaces;
 
     private int vertexVBOIndex =  -1;
@@ -28,16 +29,18 @@ public class GLESVertexArrayManager {
 
         Log.d("bzk3", "init VA manager with " + numFaces + " positions");
 
-        // 6 verteces (2 triangles) with 3 floats for coordinates and 4 color channels. each of those take 4 bytes.
-        capacity = numFaces * ((6 * (3 + 4)) * 4);
+        // 3 verteces with 3 floats for coordinates. each of those take 4 bytes.
+        capacity = numFaces * (3 * 3 * 4);
 
         vertexBuffer = ByteBuffer.allocateDirect(capacity).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        colorBuffer = ByteBuffer.allocateDirect(capacity).order(ByteOrder.nativeOrder()).asFloatBuffer();
+        normalBuffer = ByteBuffer.allocateDirect(capacity).order(ByteOrder.nativeOrder()).asFloatBuffer();
+        colorBuffer = ByteBuffer.allocateDirect(4 * capacity / 3 ).order(ByteOrder.nativeOrder()).asFloatBuffer();
     }
 
     public void uploadToGPU() {
 
         vertexBuffer.position(0);
+        normalBuffer.position(0);
         colorBuffer.position(0);
 
 //        vboData = new int[ 1 ];
@@ -64,7 +67,7 @@ public class GLESVertexArrayManager {
         ready = true;
     }
 
-    final public void draw(int vertexHandle, int colorHandle, int textureHandle) {
+    final public void draw(int vertexHandle, int colorHandle, int normalHandle, int textureHandle) {
 
         if ( !ready ) {
             return;
@@ -78,6 +81,11 @@ public class GLESVertexArrayManager {
 //        GLES20.glBindBuffer( GLES20.GL_ARRAY_BUFFER, colorVBOIndex);
         GLES20.glVertexAttribPointer(colorHandle, 4, GLES20.GL_FLOAT, false, 0, colorBuffer);
         GLES20.glEnableVertexAttribArray(colorHandle);
+
+
+        GLES20.glVertexAttribPointer(normalHandle, 3, GLES20.GL_FLOAT, false, 0, normalBuffer);
+        GLES20.glEnableVertexAttribArray(normalHandle);
+
 //        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
 
         if (textureHandle != -1) {
@@ -100,7 +108,7 @@ public class GLESVertexArrayManager {
         textureBuffer.position(0);
     }
 
-    final public void pushIntoFrameAsStatic(float[] vertexData, float[] colorData) {
+    final public void pushIntoFrameAsStatic(float[] vertexData, float[] normalData, float[] colorData) {
         try {
 
             if ( length < capacity ) {
@@ -110,6 +118,7 @@ public class GLESVertexArrayManager {
 
                 for (int c = 0; c < (vertexData.length / 3); ++c) {
                     colorBuffer.put(colorData);
+                    normalBuffer.put( normalData );
                 }
             }
         } catch (BufferOverflowException e) {

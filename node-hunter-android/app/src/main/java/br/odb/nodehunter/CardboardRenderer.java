@@ -67,12 +67,18 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     public final ArrayList<TriangleMesh> meshes = new ArrayList<>();
     public final TriangleMesh sampleEnemy = new TriangleMesh( "sample-enemy" );
     final public List<ActorSceneNode> actors = new ArrayList<>();
+    final public List<LightNode> lights = new ArrayList<>();
 
     volatile boolean ready = false;
     public boolean useVRMode = false;
     final HashMap<Material, ArrayList< GLES1Triangle> > staticGeometryToAdd= new HashMap<>();
     private int polycount = 10000;
-    private float headAngle;
+    private float headAngleXZ;
+    private float headAngleYZ;
+    private float headAngleXY;
+    private int lightPositionParam;
+    private int lightNumberParam;
+    private int normalParam;
 
     public CardboardRenderer(Context context) {
         this.context = context;
@@ -157,10 +163,14 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 
         positionParam = GLES20.glGetAttribLocation(defaultProgram, "a_Position");
         colorParam = GLES20.glGetAttribLocation(defaultProgram, "a_Color");
+        lightPositionParam = GLES20.glGetAttribLocation(defaultProgram, "l_lights");
+        lightNumberParam = GLES20.glGetAttribLocation(defaultProgram, "numLightsUsed");
         modelViewProjectionParam = GLES20.glGetUniformLocation(defaultProgram, "u_MVP");
+        normalParam = GLES20.glGetAttribLocation(defaultProgram, "a_Normal");
 
         GLES20.glEnableVertexAttribArray(positionParam);
         GLES20.glEnableVertexAttribArray(colorParam);
+        GLES20.glEnableVertexAttribArray(normalParam);
 
         // Object first appears directly in front of user.
         checkGLError("onSurfaceCreated");
@@ -206,10 +216,12 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
         Matrix.setLookAtM(camera.values, 0, 0.0f, 0.0f, CAMERA_Z, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
         checkGLError("onReadyToDraw");
 
-        headAngle = extractAngleFromHeadtransform(headTransform);
+        headAngleXZ = extractAngleXZFromHeadtransform(headTransform);
+        headAngleYZ = extractAngleYZFromHeadtransform(headTransform);
+        headAngleXY = extractAngleXYFromHeadtransform(headTransform);
 
         if ( this.useVRMode ) {
-            cameraNode.angleXZ = headAngle;
+            cameraNode.angleXZ = headAngleXZ;
 
             while( cameraNode.angleXZ < 0 ) {
                 cameraNode.angleXZ += 360.0;
@@ -221,7 +233,17 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
         }
     }
 
-    private float extractAngleFromHeadtransform(HeadTransform headTransform) {
+    private float extractAngleXYFromHeadtransform(HeadTransform headTransform) {
+        headTransform.getEulerAngles(forwardVector, 0);
+        return  360.0f - ((float)( forwardVector[ 2 ] * ( 180 / Math.PI ) ));
+    }
+
+    private float extractAngleYZFromHeadtransform(HeadTransform headTransform) {
+        headTransform.getEulerAngles(forwardVector, 0);
+        return  360.0f - ((float)( forwardVector[ 0 ] * ( 180 / Math.PI ) ));
+    }
+
+    private float extractAngleXZFromHeadtransform(HeadTransform headTransform) {
         headTransform.getEulerAngles(forwardVector, 0);
         return  360.0f - ((float)( forwardVector[ 1 ] * ( 180 / Math.PI ) ));
     }
@@ -262,7 +284,9 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
             Matrix.multiplyMM(view.values, 0, eye.getEyeView(), 0, camera.values, 0);
 
             if (!useVRMode ) {
-                Matrix.rotateM(view.values, 0, -headAngle, 0, 1.0f, 0);
+                Matrix.rotateM(view.values, 0, -headAngleXZ, 0, 1.0f, 0);
+                Matrix.rotateM(view.values, 0, -headAngleYZ, 1.0f, 0.0f, 0);
+                Matrix.rotateM(view.values, 0, -headAngleXY, 0.0f, 0.0f, 1.0f);
                 Matrix.rotateM(view.values, 0, cameraNode.angleXZ, 0, 1.0f, 0);
             }
 
@@ -271,6 +295,22 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 
             // Set the ModelViewProjection matrix in the shader.
             GLES20.glUniformMatrix4fv(modelViewProjectionParam, 1, false, modelViewProjection.values, 0);
+
+            float[] lightsBuffer = new float[ lights.size() * 4 ];
+
+            int index = 0;
+            Vec3 pos;
+            for ( LightNode light : this.lights ) {
+                pos = light.getAbsolutePosition();
+                lightsBuffer[ index + 0 ] = pos.x;
+                lightsBuffer[ index + 1 ] = pos.y;
+                lightsBuffer[ index + 2 ] = pos.z;
+                lightsBuffer[ index + 3 ] = 1;
+                index += 4;
+            }
+
+            GLES20.glUniform1i( lightNumberParam, lights.size() );
+            GLES20.glUniform4fv( lightPositionParam, lights.size(), lightsBuffer, 0 );
 
             drawPerMaterialStaticMesh();
             drawMeshes(eye);
@@ -282,7 +322,9 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
         Matrix.multiplyMM(view.values, 0, eye.getEyeView(), 0, camera.values, 0);
 
         if (!useVRMode ) {
-            Matrix.rotateM(view.values, 0, -headAngle, 0, 1.0f, 0);
+            Matrix.rotateM(view.values, 0, -headAngleXZ, 0, 1.0f, 0);
+            Matrix.rotateM(view.values, 0, -headAngleYZ, 1.0f, 0.0f, 0);
+            Matrix.rotateM(view.values, 0, -headAngleXY, 0.0f, 0.0f, 1.0f);
             Matrix.rotateM(view.values, 0, cameraNode.angleXZ, 0, 1.0f, 0);
         }
 
@@ -308,7 +350,7 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     private void drawMeshGLES2(TriangleMesh mesh) {
         synchronized ( mesh ) {
             for (GeneralTriangle face : mesh.faces) {
-                ((GLES1Triangle) face).drawGLES2(positionParam, colorParam, -1);
+                ((GLES1Triangle) face).drawGLES2(positionParam, colorParam, normalParam, -1);
             }
         }
     }
@@ -320,7 +362,7 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
         for ( Material mat : managers.keySet() ) {
 
             manager = managers.get( mat );
-            manager.draw(positionParam, colorParam, -1);
+            manager.draw(positionParam, colorParam, normalParam, -1);
         }
     }
 
@@ -415,6 +457,10 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     @Override
     public void addActor(ActorSceneNode actorSceneNode) {
         this.actors.add( actorSceneNode );
+
+        LightNode light = new LightNode( "light" + lights.size() );
+        light.setPositionFromGlobal( actorSceneNode.getAbsolutePosition());
+        addLight( light );
     }
 
     @Override
@@ -425,7 +471,7 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 
     @Override
     public void addLight(LightNode lightNode) {
-
+        this.lights.add( lightNode );
     }
 
     private void addToVAForReal(GLES1Triangle face) {
@@ -435,7 +481,10 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
         if ( !managers.containsKey( face.material ) ) {
             initManagerForMaterial( face.material, polycount / 10 );
         }
+
         manager = managers.get(face.material );
-        manager.pushIntoFrameAsStatic(face.getVertexData(), face.material.mainColor.getFloatData());
+        Vec3 normal = face.makeNormal();
+        float[] normalData = new float[]{ normal.x, normal.y, normal.z };
+        manager.pushIntoFrameAsStatic(face.getVertexData(), normalData, face.material.mainColor.getFloatData());
     }
 }

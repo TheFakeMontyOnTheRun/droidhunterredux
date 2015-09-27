@@ -39,7 +39,7 @@ public class GLES1TriangleFactory extends GeneralTriangleFactory {
 		
 		if ( lightDirection != null ) {
 			
-			Vec3 normal = toReturn.makeNormal().normalized();
+			Vec3 normal = toReturn.makeNormal();
 			lightFactor = 0.8f + ( normal.dotProduct( lightDirection.normalized() ) * 0.2f );
 		}
 		

@@ -89,8 +89,8 @@ public class LevelLoader extends AsyncTask<Void, Void, Void> {
 
                 Vec3 pos = new Vec3(presenter.renderer.getCurrentCameraNode().localPosition);
                 presenter.spawnActor(pos.add(new Vec3(10.0f, 0.0f, 10.0f)), 180.0f);
-                presenter.spawnActor(pos.add(new Vec3(30.0f, 0.0f, 30.0f)), 0.0f);
-                presenter.spawnActor(pos.add(new Vec3(20.0f, 0.0f, 20.0f)), 90.0f);
+                presenter.spawnActor(pos.add(new Vec3(20.0f, 0.0f, 20.0f)), 0.0f);
+                presenter.spawnActor(pos.add(new Vec3(30.0f, 0.0f, 30.0f)), 90.0f);
                 presenter.renderer.setAsReady();
                 return;
             }

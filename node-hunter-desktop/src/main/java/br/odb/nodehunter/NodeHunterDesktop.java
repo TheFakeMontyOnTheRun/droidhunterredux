@@ -83,7 +83,7 @@ public class NodeHunterDesktop {
 					e1.printStackTrace();
 				}
 				ScenePresenter presenter = new ScenePresenter( canvas );
-				GameEngine engine = new GameEngine();
+				GameEngine engine = new GameEngine( true );
 				engine.makeNewSessionFor( null, world, presenter);				
 				createScene(canvas);
 				new Thread( engine ).start();
@@ -141,7 +141,7 @@ public class NodeHunterDesktop {
 				
 				light0.setPositionFromGlobal( canvas.getCurrentCameraNode().getAbsolutePosition() );
 				canvas.addLight( light0 );
-				canvas.spawnDefaultActor( canvas.getCurrentCameraNode().localPosition.add( new Vec3( 5.0f, 0.0f, 5.0f ) ), 0.0f );
+				//canvas.spawnDefaultActor( canvas.getCurrentCameraNode().localPosition.add( new Vec3( 5.0f, 0.0f, 5.0f ) ), 0.0f );
 			}
 		}).start();
 	}

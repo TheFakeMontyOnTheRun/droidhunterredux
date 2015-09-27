@@ -64,7 +64,6 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 	float[] colorWhite = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 	public final CameraNode defaultCameraNode = new CameraNode("default");
-	float angle = 0.0f;
 	private GLU glu;
 
 	private SpaceRegion currentSector;
@@ -174,13 +173,13 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 	}
 
 	@Override
-	public void display(GLAutoDrawable drawable) {
+	public synchronized void display(GLAutoDrawable drawable) {
 
 		GL2 gl = drawable.getGL().getGL2();
 		gl.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
 
-		gl.glRotatef(angle, 0.0f, 1.0f, 0.0f);
+		gl.glRotatef( defaultCameraNode.angleXZ, 0.0f, 1.0f, 0.0f);
 		gl.glTranslatef(-defaultCameraNode.localPosition.x,
 				-defaultCameraNode.localPosition.y,
 				-defaultCameraNode.localPosition.z);
@@ -204,14 +203,17 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 			gl.glLightf(gl.GL_LIGHT1, gl.GL_CONSTANT_ATTENUATION, 0.8f);
 		}
 
-		gl.glBegin(GL_TRIANGLES);
+		
 
 		synchronized (actors) {
 			for (ActorSceneNode p : actors) {
-				drawCube(gl, p.localPosition);
+				synchronized( p ) {
+					drawCube(gl, p.localPosition, p.angleXZ );
+				}
 			}
 		}
-
+		
+		gl.glBegin(GL_TRIANGLES);
 		for (GeneralTriangle poly : this.polysToRender) {
 
 			c = poly.material.mainColor;
@@ -225,11 +227,13 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 			gl.glVertex3f(poly.x2, poly.y2, poly.z2);
 
 		}
-
-		gl.glEnd();
+		gl.glEnd();		
 	}
 
-	private void drawCube(GL2 gl, Vec3 p) {
+	private void drawCube(GL2 gl, Vec3 p, float angleXZ) {
+		gl.glTranslatef( p.x, p.y, p.z);
+		gl.glRotatef( -angleXZ, 0, 1, 0);
+		gl.glBegin(GL_TRIANGLES);
 		for (GeneralTriangle poly : this.defaultActorMesh) {
 
 			gl.glColor4f(poly.material.mainColor.r / 255.0f,
@@ -237,11 +241,14 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 					poly.material.mainColor.b / 255.0f,
 					poly.material.mainColor.a / 255.0f);
 
-			gl.glVertex3f(poly.x0 + p.x, poly.y0 + p.y, poly.z0 + p.z);
-			gl.glVertex3f(poly.x1 + p.x, poly.y1 + p.y, poly.z1 + p.z);
-			gl.glVertex3f(poly.x2 + p.x, poly.y2 + p.y, poly.z2 + p.z);
+			gl.glVertex3f(poly.x0, poly.y0, poly.z0 );
+			gl.glVertex3f(poly.x1, poly.y1, poly.z1 );
+			gl.glVertex3f(poly.x2, poly.y2, poly.z2 );
 
 		}
+		gl.glEnd();
+		gl.glRotatef( angleXZ, 0, 1, 0);
+		gl.glTranslatef( -p.x, -p.y, -p.z);
 	}
 
 	@Override
@@ -280,34 +287,34 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 			this.repaint();
 			break;
 		case KeyEvent.VK_LEFT:
-			angle -= 10.0f;
+			defaultCameraNode.angleXZ -= 10.0f;
 			break;
 		case KeyEvent.VK_RIGHT:
-			angle += 10.0f;
+			defaultCameraNode.angleXZ += 10.0f;
 			break;
 		case KeyEvent.VK_UP:
 			defaultCameraNode.localPosition.x += scale
-					* Math.sin(angle * (Math.PI / 180.0f));
+					* Math.sin(defaultCameraNode.angleXZ * (Math.PI / 180.0f));
 			defaultCameraNode.localPosition.z -= scale
-					* Math.cos(angle * (Math.PI / 180.0f));
+					* Math.cos(defaultCameraNode.angleXZ * (Math.PI / 180.0f));
 			break;
 		case KeyEvent.VK_DOWN:
 			defaultCameraNode.localPosition.x -= scale
-					* Math.sin(angle * (Math.PI / 180.0f));
+					* Math.sin(defaultCameraNode.angleXZ * (Math.PI / 180.0f));
 			defaultCameraNode.localPosition.z += scale
-					* Math.cos(angle * (Math.PI / 180.0f));
+					* Math.cos(defaultCameraNode.angleXZ * (Math.PI / 180.0f));
 			break;
 		case KeyEvent.VK_COMMA:
 			defaultCameraNode.localPosition.x += scale
-					* Math.sin((angle - 90.0f) * (Math.PI / 180.0f));
+					* Math.sin((defaultCameraNode.angleXZ - 90.0f) * (Math.PI / 180.0f));
 			defaultCameraNode.localPosition.z -= scale
-					* Math.cos((angle - 90.0f) * (Math.PI / 180.0f));
+					* Math.cos((defaultCameraNode.angleXZ - 90.0f) * (Math.PI / 180.0f));
 			break;
 		case KeyEvent.VK_PERIOD:
 			defaultCameraNode.localPosition.x += scale
-					* Math.sin((angle + 90.0f) * (Math.PI / 180.0f));
+					* Math.sin((defaultCameraNode.angleXZ + 90.0f) * (Math.PI / 180.0f));
 			defaultCameraNode.localPosition.z -= scale
-					* Math.cos((angle + 90.0f) * (Math.PI / 180.0f));
+					* Math.cos((defaultCameraNode.angleXZ + 90.0f) * (Math.PI / 180.0f));
 			break;
 
 		case KeyEvent.VK_ESCAPE:
@@ -404,7 +411,12 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 	}
 
 	@Override
-	public void addActor(ActorSceneNode actor) {
+	public synchronized void addActor(ActorSceneNode actor) {
 		this.actors.add( actor );		
+	}
+
+	@Override
+	public synchronized void clearActors() {
+		this.actors.clear();	
 	}
 }
