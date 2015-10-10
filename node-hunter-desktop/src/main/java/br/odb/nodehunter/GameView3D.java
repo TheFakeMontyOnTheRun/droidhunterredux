@@ -11,6 +11,7 @@ import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_SMOOTH;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
 
+import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.FileInputStream;
@@ -44,6 +45,7 @@ import br.odb.libstrip.builders.GeneralTriangleFactory;
 import br.odb.utils.Color;
 import br.odb.utils.Direction;
 import br.odb.utils.math.Vec3;
+import br.odb.vintage.GameEngine;
 // GL2 constants
 import br.odb.vintage.SceneRenderer;
 import br.odb.vintage.actor.ActorSceneNode;
@@ -69,6 +71,8 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 	private SpaceRegion currentSector;
 
 	SceneTesselator tesselator;
+
+	private List<LaserBeam> lasers = new ArrayList<>();
 
 	public GameView3D() {
 		this.addGLEventListener(this);
@@ -201,15 +205,19 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 			gl.glLightfv(gl.GL_LIGHT1, gl.GL_POSITION, raw, 0);
 			gl.glLightfv(gl.GL_LIGHT1, gl.GL_DIFFUSE, colorWhite, 0);
 			gl.glLightf(gl.GL_LIGHT1, gl.GL_CONSTANT_ATTENUATION, 0.8f);
-		}
-
-		
+		}		
 
 		synchronized (actors) {
 			for (ActorSceneNode p : actors) {
 				synchronized( p ) {
 					drawCube(gl, p.localPosition, p.angleXZ );
 				}
+			}
+		}
+		
+		synchronized( lasers ) {
+			for ( LaserBeam beam : lasers ) {
+				drawBeam( gl, beam );
 			}
 		}
 		
@@ -227,7 +235,25 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 			gl.glVertex3f(poly.x2, poly.y2, poly.z2);
 
 		}
-		gl.glEnd();		
+		gl.glEnd();
+		
+	}
+
+	private void drawBeam(GL2 gl, LaserBeam beam) {
+		gl.glBegin( gl.GL_TRIANGLES );
+		gl.glColor4f(1.0f, 0.0f, 0.0f, 1.0f );		
+		gl.glVertex3f(beam.target.x, beam.target.y, beam.target.z);
+		gl.glColor4f(1.0f, 0.0f, 0.0f, 0.5f );
+		gl.glVertex3f(beam.origin.x + 0.025f, beam.origin.y - 0.01f, beam.origin.z);
+		gl.glVertex3f(beam.origin.x + 0.025f, beam.origin.y + 0.01f, beam.origin.z);
+
+		gl.glColor4f(1.0f, 0.0f, 0.0f, 1.0f );
+		gl.glVertex3f(beam.target.x, beam.target.y, beam.target.z);
+		gl.glColor4f(1.0f, 0.0f, 0.0f, 0.5f );
+		gl.glVertex3f(beam.origin.x + 0.01f + 0.025f, beam.origin.y, beam.origin.z);
+		gl.glVertex3f(beam.origin.x - 0.01f + 0.025f, beam.origin.y, beam.origin.z);
+		
+		gl.glEnd();
 	}
 
 	private void drawCube(GL2 gl, Vec3 p, float angleXZ) {
@@ -289,6 +315,11 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 		case KeyEvent.VK_LEFT:
 			defaultCameraNode.angleXZ -= 10.0f;
 			break;
+			
+		case KeyEvent.VK_SPACE:
+			startShooting();
+			break;
+			
 		case KeyEvent.VK_RIGHT:
 			defaultCameraNode.angleXZ += 10.0f;
 			break;
@@ -323,6 +354,19 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 			break;
 		}
 
+	}
+
+	private void startShooting() {
+		
+		ActorSceneNode target = GameEngine.checkForPointedElements( getCurrentCameraNode(),  this.actors );
+		
+		if ( target != null ) {
+			addLaser( getCurrentCameraNode().getAbsolutePosition().add( new Vec3( 0.0f, -0.1f, 0.0f ) ), target.getAbsolutePosition().add( new Vec3( 0.0f, -0.1f, 0.0f ) ), 5250 );
+		}		
+	}
+
+	private void addLaser(Vec3 origin, Vec3 target, int decayInMS ) {
+		lasers .add( new LaserBeam( origin, target, decayInMS ) );		
 	}
 
 	private void clearMeshesOn(GroupSector sector ) {
@@ -418,5 +462,23 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 	@Override
 	public synchronized void clearActors() {
 		this.actors.clear();	
+	}
+
+	@Override
+	public void update(long step) {
+		
+		List< LaserBeam > toRemove = new ArrayList<>();
+		
+		for ( LaserBeam beam : lasers ) {
+			beam.update( step );
+			
+			if ( beam.decayInMS <= 0 ) {
+				toRemove.add( beam );
+			}
+		}		
+		
+		for ( LaserBeam beam : toRemove ) {
+			lasers.remove( beam );
+		}
 	}
 }

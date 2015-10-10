@@ -269,7 +269,7 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
      * @param eye The eye to render. Includes all required transformations.
      */
     @Override
-    public void onDrawEye(Eye eye) {
+    public synchronized void onDrawEye(Eye eye) {
 
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
@@ -452,6 +452,11 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 
         staticGeometryToAdd.clear();
         Log.i( "Renderer", "Flushed" );
+    }
+
+    @Override
+    public synchronized void clearActors() {
+        this.actors.clear();
     }
 
     @Override

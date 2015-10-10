@@ -10,8 +10,8 @@ import br.odb.vintage.ScenePresenter;
 
 public class NodeHunter3D extends GameEngine implements ApplicationClient {
 
-	NodeHunter3D(boolean multiplayerEnabled) {
-		super(multiplayerEnabled);
+	NodeHunter3D(boolean multiplayerEnabled, String serverURL) {
+		super(serverURL);
 	}
 
 	App game = new App();

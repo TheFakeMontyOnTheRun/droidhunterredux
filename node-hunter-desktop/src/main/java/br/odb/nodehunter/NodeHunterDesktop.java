@@ -83,7 +83,7 @@ public class NodeHunterDesktop {
 					e1.printStackTrace();
 				}
 				ScenePresenter presenter = new ScenePresenter( canvas );
-				GameEngine engine = new GameEngine( true );
+				GameEngine engine = new GameEngine( "localhost" );
 				engine.makeNewSessionFor( null, world, presenter);				
 				createScene(canvas);
 				new Thread( engine ).start();

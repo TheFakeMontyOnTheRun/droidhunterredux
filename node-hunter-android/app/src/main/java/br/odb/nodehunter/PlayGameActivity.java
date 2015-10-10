@@ -42,7 +42,7 @@ public class PlayGameActivity extends CardboardActivity implements FileServerDel
 
     private void initGameEngine( boolean shouldUseVRMode, boolean runInMultiplayer ) {
         cardboardView.setVRModeEnabled( shouldUseVRMode );
-        engine = new GameEngine( runInMultiplayer );
+        engine = new GameEngine( runInMultiplayer ? "192.168.1.70" : null );
         this.renderer = new CardboardRenderer( this );
         renderer.useVRMode = shouldUseVRMode;
         presenter = new GamePresentation( renderer );
@@ -50,7 +50,6 @@ public class PlayGameActivity extends CardboardActivity implements FileServerDel
         LevelLoader loader = new LevelLoader( engine, presenter, this, "prison.opt.ser" );
         loader.execute();
     }
-
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
