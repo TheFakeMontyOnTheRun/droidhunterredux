@@ -358,7 +358,7 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 
 	private void startShooting() {
 		
-		ActorSceneNode target = GameEngine.checkForPointedElements( getCurrentCameraNode(),  this.actors );
+		ActorSceneNode target = GameEngine.checkForPointedElements( getCurrentCameraNode(),  this.actors, world );
 		
 		if ( target != null ) {
 			addLaser( getCurrentCameraNode().getAbsolutePosition().add( new Vec3( 0.0f, -0.1f, 0.0f ) ), target.getAbsolutePosition().add( new Vec3( 0.0f, -0.1f, 0.0f ) ), 5250 );
