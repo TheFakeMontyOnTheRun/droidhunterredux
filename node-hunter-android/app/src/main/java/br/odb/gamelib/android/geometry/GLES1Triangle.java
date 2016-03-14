@@ -144,18 +144,16 @@ public class GLES1Triangle extends GeneralTriangle {
 
     public void drawGLES2(int vertexHandle, int colorHandle, int normalHandle, int textureHandle) {
 
-        GLES20.glVertexAttribPointer(vertexHandle, 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
-
         GLES20.glEnableVertexAttribArray(vertexHandle);
-
-        GLES20.glVertexAttribPointer(colorHandle, 4, GLES20.GL_FLOAT, false, 0, colorBuffer);
-
         GLES20.glEnableVertexAttribArray(colorHandle);
 
-        GLES20.glVertexAttribPointer(normalHandle, 3, GLES20.GL_FLOAT, false, 0, normalBuffer);
+        GLES20.glVertexAttribPointer(vertexHandle, 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
+        GLES20.glVertexAttribPointer(colorHandle, 4, GLES20.GL_FLOAT, false, 0, colorBuffer);
 
-        GLES20.glEnableVertexAttribArray(normalHandle);
 
+//        GLES20.glVertexAttribPointer(normalHandle, 3, GLES20.GL_FLOAT, false, 0, normalBuffer);
+//
+//        GLES20.glEnableVertexAttribArray(normalHandle);
 
 
 //        if (textureHandle != -1 && textureBuffer != null) {
@@ -169,7 +167,12 @@ public class GLES1Triangle extends GeneralTriangle {
 //        }
 
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);
+
+        GLES20.glDisableVertexAttribArray(vertexHandle);
+        GLES20.glDisableVertexAttribArray(colorHandle);
+
     }
+
 
     // ------------------------------------------------------------------------------------------------------------
 
