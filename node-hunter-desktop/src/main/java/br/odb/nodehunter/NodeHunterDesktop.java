@@ -34,27 +34,25 @@ import com.jogamp.opengl.util.FPSAnimator;
 
 /**
  * @author monty
- *
  */
 public class NodeHunterDesktop {
-	
+
 	private static final int CANVAS_WIDTH = 640;
 	private static final int CANVAS_HEIGHT = 480;
 	private static final int FPS = 60;
-	
+
 	public static World loadMap(String filename)
 			throws FileNotFoundException, IOException, SAXException,
 			ParserConfigurationException {
-		
-		FileInputStream fis = new FileInputStream(
-				System.getProperty( "user.home" ) + filename );
-		 
-		World world = WorldLoader.build(fis);
-		 
-		return world;
-	}	
 
-	
+		FileInputStream fis = new FileInputStream(filename);
+
+		World world = WorldLoader.build(fis);
+
+		return world;
+	}
+
+
 	public static void main(String[] args) {
 		final GameView3D canvas = new GameView3D();
 
@@ -63,8 +61,8 @@ public class NodeHunterDesktop {
 
 			@Override
 			public void run() {
-				try {					
-					world = NodeHunterDesktop.loadMap( "/prison.opt.xml" );
+				try {
+					world = NodeHunterDesktop.loadMap("chamber.opt.xml");
 					canvas.tesselator.generateSubSectorQuadsForWorld(world);
 					initDefaultActorModel();
 
@@ -132,14 +130,14 @@ public class NodeHunterDesktop {
 			}
 			
 			private void createScene(GameView3D canvas) {
-			
-				GroupSector sr = (GroupSector) world.masterSector.getChild( "Cube" );
-				canvas.getCurrentCameraNode().setPositionFromGlobal( ( sr.getAbsolutePosition().add( new Vec3( sr.size.x / 2.0f, sr.size.y / 2.0f, sr.size.z / 2.0f ) ) ) );
-				LightNode light0 = new LightNode( "light0" );
+
+				GroupSector sr = (GroupSector) world.masterSector.getChild("StartChamber");
+				canvas.getCurrentCameraNode().setPositionFromGlobal((sr.getAbsolutePosition().add(new Vec3(sr.size.x / 2.0f, sr.size.y / 2.0f, sr.size.z / 2.0f))));
+				LightNode light0 = new LightNode("light0");
 				light0.intensity = 0.5f;
-				
-				light0.setPositionFromGlobal( canvas.getCurrentCameraNode().getAbsolutePosition() );
-				canvas.addLight( light0 );
+
+				light0.setPositionFromGlobal(canvas.getCurrentCameraNode().getAbsolutePosition());
+				canvas.addLight(light0);
 				//canvas.spawnDefaultActor( canvas.getCurrentCameraNode().localPosition.add( new Vec3( 5.0f, 0.0f, 5.0f ) ), 0.0f );
 			}
 		}).start();

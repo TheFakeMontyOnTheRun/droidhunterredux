@@ -47,7 +47,7 @@ public class PlayGameActivity extends CardboardActivity implements FileServerDel
         renderer.useVRMode = shouldUseVRMode;
         presenter = new GamePresentation( renderer );
         cardboardView.setRenderer( renderer );
-        LevelLoader loader = new LevelLoader( engine, presenter, this, "prison.opt.ser" );
+        LevelLoader loader = new LevelLoader( engine, presenter, this, "chamber.opt.xml" );
         loader.execute();
     }
 
