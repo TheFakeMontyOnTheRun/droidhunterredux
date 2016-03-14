@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package br.odb.nodehunter;
 
@@ -80,14 +80,14 @@ public class NodeHunterDesktop {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				ScenePresenter presenter = new ScenePresenter( canvas );
-				GameEngine engine = new GameEngine( null );
-				engine.makeNewSessionFor( null, world, presenter);				
+				ScenePresenter presenter = new ScenePresenter(canvas);
+				GameEngine engine = new GameEngine(null);
+				engine.makeNewSessionFor(null, world, presenter);
 				createScene(canvas);
-				new Thread( engine ).start();
-				
-				System.out.println( "loaded " + canvas.polysToRender.size() + " polys" );
-				
+				new Thread(engine).start();
+
+				System.out.println("loaded " + canvas.polysToRender.size() + " polys");
+
 				canvas.setPreferredSize(new Dimension(CANVAS_WIDTH,
 						CANVAS_HEIGHT));
 
@@ -110,7 +110,7 @@ public class NodeHunterDesktop {
 						}.start();
 					}
 				});
-				frame.setTitle( "3D View" );
+				frame.setTitle("3D View");
 				frame.pack();
 				frame.setVisible(true);
 				animator.start(); // start the animation loop
@@ -128,7 +128,7 @@ public class NodeHunterDesktop {
 //
 //				canvas.setDefaultMeshForActor(mesh.get(0));
 			}
-			
+
 			private void createScene(GameView3D canvas) {
 
 				GroupSector sr = (GroupSector) world.masterSector.getChild("StartChamber");

@@ -87,8 +87,8 @@ public class LevelLoader extends AsyncTask<Void, Void, Void> {
         for (index = size - 1; index >= 0; --index) {
             if (srs.get(index) instanceof GroupSector) {
 
-                presenter.renderer.getCurrentCameraNode().localPosition
-                        .set(((GroupSector) srs.get(index)).getAbsoluteCenter());
+                        presenter.renderer.getCurrentCameraNode().localPosition
+                                .set(((GroupSector) srs.get(index)).getAbsoluteCenter());
 
                 Vec3 pos = new Vec3(presenter.renderer.getCurrentCameraNode().localPosition);
                 presenter.spawnActor(pos.add(new Vec3(10.0f, 0.0f, 10.0f)), 180.0f);

@@ -1,7 +1,10 @@
 package br.odb.nodehunter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
+import android.opengl.GLUtils;
 import android.opengl.Matrix;
 import android.util.Log;
 
@@ -17,6 +20,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.microedition.khronos.egl.EGLConfig;
 
@@ -58,9 +62,9 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     private int colorParam;
     private int modelViewProjectionParam;
 
-    private br.odb.utils.math.Matrix camera = new br.odb.utils.math.Matrix( 4, 4 );
-    private br.odb.utils.math.Matrix view = new br.odb.utils.math.Matrix( 4, 4 );
-    private br.odb.utils.math.Matrix modelViewProjection = new br.odb.utils.math.Matrix( 4, 4 );
+    private br.odb.gameutils.math.Matrix camera = new br.odb.gameutils.math.Matrix( 4, 4 );
+    private br.odb.gameutils.math.Matrix view = new br.odb.gameutils.math.Matrix( 4, 4 );
+    private br.odb.gameutils.math.Matrix modelViewProjection = new br.odb.gameutils.math.Matrix( 4, 4 );
 
     private float[] forwardVector = new float[ 3 ];
 
@@ -68,7 +72,7 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     public final TriangleMesh sampleEnemy = new TriangleMesh( "sample-enemy" );
     final public List<ActorSceneNode> actors = new ArrayList<>();
     final public List<LightNode> lights = new ArrayList<>();
-
+	final Map< String, Integer > textureIds = new HashMap<>();
     volatile boolean ready = false;
     public boolean useVRMode = false;
     final HashMap<Material, ArrayList< GLES1Triangle> > staticGeometryToAdd= new HashMap<>();
@@ -76,9 +80,9 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     private float headAngleXZ;
     private float headAngleYZ;
     private float headAngleXY;
-    private int lightPositionParam;
-    private int lightNumberParam;
-    private int normalParam;
+    int texCoordsPosition;
+    int samplePosition;
+	int textureId;
 
     public CardboardRenderer(Context context) {
         this.context = context;
@@ -163,14 +167,12 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 
         positionParam = GLES20.glGetAttribLocation(defaultProgram, "a_Position");
         colorParam = GLES20.glGetAttribLocation(defaultProgram, "a_Color");
-        lightPositionParam = GLES20.glGetAttribLocation(defaultProgram, "l_lights");
-        lightNumberParam = GLES20.glGetAttribLocation(defaultProgram, "numLightsUsed");
         modelViewProjectionParam = GLES20.glGetUniformLocation(defaultProgram, "u_MVP");
-        normalParam = GLES20.glGetAttribLocation(defaultProgram, "a_Normal");
-
-        GLES20.glEnableVertexAttribArray(positionParam);
-        GLES20.glEnableVertexAttribArray(colorParam);
-        GLES20.glEnableVertexAttribArray(normalParam);
+	    checkGLError("all other positions");
+	    texCoordsPosition = GLES20.glGetAttribLocation(defaultProgram, "aTexCoord");
+	    checkGLError("texCoordsPosition");
+	    samplePosition = GLES20.glGetUniformLocation( defaultProgram, "sTexture");
+	    checkGLError("samplePosition");
 
         // Object first appears directly in front of user.
         checkGLError("onSurfaceCreated");
@@ -181,6 +183,36 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
             e.printStackTrace();
         }
     }
+
+
+	public static int loadTexture(final Context context, final Bitmap bitmap )  {
+		final int[] textureHandle = new int[1];
+
+		GLES20.glGenTextures(1, textureHandle, 0);
+
+		if (textureHandle[0] != 0) {
+			final BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inScaled = false;
+
+			GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureHandle[0]);
+
+			GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
+			GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
+
+			GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_REPEAT);
+			GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_REPEAT);
+
+			GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
+
+			bitmap.recycle();
+		}
+
+		if (textureHandle[0] == 0) {
+			throw new RuntimeException("Error loading texture.");
+		}
+
+		return textureHandle[0];
+	}
 
     /**
      * Converts a raw text file into a string.
@@ -308,9 +340,6 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
                 index += 4;
             }
 
-            GLES20.glUniform1i( lightNumberParam, lights.size() );
-            GLES20.glUniform4fv( lightPositionParam, lights.size(), lightsBuffer, 0 );
-
             drawPerMaterialStaticMesh();
             drawMeshes(eye);
         }
@@ -349,7 +378,7 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     private void drawMeshGLES2(TriangleMesh mesh) {
         synchronized ( mesh ) {
             for (GeneralTriangle face : mesh.faces) {
-                ((GLES1Triangle) face).drawGLES2(positionParam, colorParam, normalParam, -1);
+                ((GLES1Triangle) face).drawGLES2(positionParam, colorParam, -1, texCoordsPosition);
             }
         }
     }
@@ -358,10 +387,39 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 
         GLESVertexArrayManager manager;
 
-        for ( Material mat : managers.keySet() ) {
+
+
+	    checkGLError("set texturing units");
+
+	    for ( Material mat : managers.keySet() ) {
+
+		    if ( mat.texture != null ) {
+			    GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+			    GLES20.glUniform1i(samplePosition, 0);
+			    if ( textureIds.get( mat.texture ) == null ) {
+				    try {
+					    Log.d( "BZK3", "Loading texture " + mat.texture  );
+					    textureIds.put( mat.texture, loadTexture( context, BitmapFactory.decodeStream(context.getAssets().open(mat.texture))  ) );
+					    checkGLError("loaded texture " + mat.texture + " with id " + textureIds.get(mat.texture));
+				    } catch (IOException e) {
+					    e.printStackTrace();
+				    }
+
+			    }
+
+			    Integer id = textureIds.get( mat.texture );
+			    GLES20.glBindTexture( GLES20.GL_TEXTURE_2D, id.intValue() );
+			    checkGLError("binded texture");
+		    } else {
+			    GLES20.glActiveTexture(GLES20.GL_TEXTURE1);
+			    GLES20.glUniform1i(samplePosition, 1);
+		    }
+
 
             manager = managers.get( mat );
-            manager.draw(positionParam, colorParam, normalParam, -1);
+		    checkGLError("before drew meshes for material " + mat );
+            manager.draw(positionParam, colorParam, -1, mat.texture == null ? -1 : texCoordsPosition);
+		    checkGLError("drew meshes for material " + mat );
         }
     }
 
@@ -400,7 +458,7 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     }
 
     public GLES1Triangle changeHue(GLES1Triangle trig) {
-        trig.material = new Material(null, new Color(trig.material.mainColor), null, null );
+        trig.material = Material.makeWithColorAndTexture(new Color(trig.material.mainColor), trig.material.texture);
 
         switch (trig.hint) {
             case W:
@@ -436,7 +494,8 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     public void flush() {
 
         for ( Material m : staticGeometryToAdd.keySet() ) {
-            initManagerForMaterial( m, staticGeometryToAdd.get( m ).size() );
+
+	        initManagerForMaterial(m, staticGeometryToAdd.get(m).size());
             for ( GLES1Triangle t : staticGeometryToAdd.get( m ) ) {
                 addToVAForReal( t );
                 t.clear();
@@ -475,7 +534,12 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 
     @Override
     public void addLight(LightNode lightNode) {
-        this.lights.add( lightNode );
+        this.lights.add(lightNode);
+    }
+
+    @Override
+    public void update(long l) {
+
     }
 
     private void addToVAForReal(GLES1Triangle face) {
@@ -489,6 +553,10 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
         manager = managers.get(face.material );
         Vec3 normal = face.makeNormal();
         float[] normalData = new float[]{ normal.x, normal.y, normal.z };
-        manager.pushIntoFrameAsStatic(face.getVertexData(), normalData, face.material.mainColor.getFloatData());
+
+	    if ( face.material.texture != null ) {
+		    Log.d( "bzk3", "texture");
+	    }
+        manager.pushIntoFrameAsStatic(face.getVertexData(), normalData, face.material.mainColor.getFloatData(),face.getTextureCoordinates());
     }
 }

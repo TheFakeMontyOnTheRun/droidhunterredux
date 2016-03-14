@@ -15,13 +15,10 @@ public class GLESVertexArrayManager {
     private FloatBuffer colorBuffer;
     private FloatBuffer vertexBuffer;
     private FloatBuffer textureBuffer;
-    private FloatBuffer normalBuffer;
+//    private FloatBuffer normalBuffer;
     private int numFaces;
-
-    private int vertexVBOIndex =  -1;
-    private int colorVBOIndex = -1;
     boolean ready;
-    int[] vboData;
+
 
     public GLESVertexArrayManager( int polys ) {
 
@@ -33,37 +30,17 @@ public class GLESVertexArrayManager {
         capacity = numFaces * (3 * 3 * 4);
 
         vertexBuffer = ByteBuffer.allocateDirect(capacity).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        normalBuffer = ByteBuffer.allocateDirect(capacity).order(ByteOrder.nativeOrder()).asFloatBuffer();
+//        normalBuffer = ByteBuffer.allocateDirect(capacity).order(ByteOrder.nativeOrder()).asFloatBuffer();
         colorBuffer = ByteBuffer.allocateDirect(4 * capacity / 3 ).order(ByteOrder.nativeOrder()).asFloatBuffer();
+	    textureBuffer = ByteBuffer.allocateDirect(2 * capacity / 3 ).order(ByteOrder.nativeOrder()).asFloatBuffer();
     }
 
     public void uploadToGPU() {
 
         vertexBuffer.position(0);
-        normalBuffer.position(0);
+//        normalBuffer.position(0);
         colorBuffer.position(0);
-
-//        vboData = new int[ 1 ];
-//        GLES20.glGenBuffers(1, vboData, 0);
-//        vertexVBOIndex = vboData[ 0 ];
-//
-//        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vertexVBOIndex);
-//        GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, length, vertexBuffer, GLES20.GL_STATIC_DRAW);
-//        GLES20.glBufferSubData(GLES20.GL_ARRAY_BUFFER, 0, length, vertexBuffer);
-//        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
-//
-//        vboData = new int[ 1 ];
-//        GLES20.glGenBuffers(1, vboData, 0);
-//        colorVBOIndex = vboData[ 0 ];
-//
-//        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, colorVBOIndex);
-//        GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, 4 * length / 3, colorBuffer, GLES20.GL_STATIC_DRAW);
-//        GLES20.glBufferSubData(GLES20.GL_ARRAY_BUFFER, 0, 4 * length / 3, colorBuffer);
-//        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
-//
-//        vertexBuffer.clear();
-//        colorBuffer.clear();
-
+	    textureBuffer.position(0);
         ready = true;
     }
 
@@ -72,43 +49,33 @@ public class GLESVertexArrayManager {
         if ( !ready ) {
             return;
         }
-
-//        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vertexVBOIndex);
-        GLES20.glVertexAttribPointer(vertexHandle, 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
         GLES20.glEnableVertexAttribArray(vertexHandle);
-//        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
-
-//        GLES20.glBindBuffer( GLES20.GL_ARRAY_BUFFER, colorVBOIndex);
-        GLES20.glVertexAttribPointer(colorHandle, 4, GLES20.GL_FLOAT, false, 0, colorBuffer);
         GLES20.glEnableVertexAttribArray(colorHandle);
+//        GLES20.glEnableVertexAttribArray(normalHandle);
 
-
-        GLES20.glVertexAttribPointer(normalHandle, 3, GLES20.GL_FLOAT, false, 0, normalBuffer);
-        GLES20.glEnableVertexAttribArray(normalHandle);
-
-//        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
+        GLES20.glVertexAttribPointer(vertexHandle, 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
+        GLES20.glVertexAttribPointer(colorHandle, 4, GLES20.GL_FLOAT, false, 0, colorBuffer);
+//        GLES20.glVertexAttribPointer(normalHandle, 3, GLES20.GL_FLOAT, false, 0, normalBuffer);
 
         if (textureHandle != -1) {
-//            textureBuffer.position(0);
-//            GLES20.glVertexAttribPointer(textureHandle, 2, GLES20.GL_FLOAT,
-//                    false, 0, textureBuffer);
-//
-//            GLES20.glEnableVertexAttribArray(textureHandle);
+            textureBuffer.position(0);
+            GLES20.glVertexAttribPointer(textureHandle, 2, GLES20.GL_FLOAT, false, 0, textureBuffer);
+            GLES20.glEnableVertexAttribArray(textureHandle);
         }
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, length / 12);
+
+        if ( textureHandle != -1) {
+            GLES20.glDisableVertexAttribArray(textureHandle);
+        }
+
+        GLES20.glDisableVertexAttribArray(vertexHandle);
+        GLES20.glDisableVertexAttribArray(colorHandle);
+//        GLES20.glDisableVertexAttribArray(normalHandle);
+
+
     }
 
-    public void setTextureCoordenates(float[] fs) {
-        ByteBuffer byteBuf;
-        //4 vectors of 3 floats (having 4 bytes each)
-        byteBuf = ByteBuffer.allocateDirect(3 * 4 * 4);
-        byteBuf.order(ByteOrder.nativeOrder());
-        textureBuffer = byteBuf.asFloatBuffer();
-        textureBuffer.put(fs);
-        textureBuffer.position(0);
-    }
-
-    final public void pushIntoFrameAsStatic(float[] vertexData, float[] normalData, float[] colorData) {
+    final public void pushIntoFrameAsStatic(float[] vertexData, float[] normalData, float[] colorData, float[] textureData) {
         try {
 
             if ( length < capacity ) {
@@ -118,8 +85,10 @@ public class GLESVertexArrayManager {
 
                 for (int c = 0; c < (vertexData.length / 3); ++c) {
                     colorBuffer.put(colorData);
-                    normalBuffer.put( normalData );
+//                    normalBuffer.put( normalData );
                 }
+
+	            textureBuffer.put( textureData );
             }
         } catch (BufferOverflowException e) {
             e.printStackTrace();
