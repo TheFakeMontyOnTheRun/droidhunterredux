@@ -15,10 +15,10 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.xml.parsers.ParserConfigurationException;
 
+import br.odb.liboldfart.SimpleWavefrontOBJLoader;
 import org.xml.sax.SAXException;
 
 import br.odb.liboldfart.WavefrontMaterialLoader;
-import br.odb.liboldfart.WavefrontOBJLoader;
 import br.odb.libscene.GroupSector;
 import br.odb.libscene.LightNode;
 import br.odb.libscene.World;
@@ -26,7 +26,7 @@ import br.odb.libscene.builders.WorldLoader;
 import br.odb.libstrip.TriangleMesh;
 import br.odb.libstrip.Material;
 import br.odb.libstrip.builders.GeneralTriangleFactory;
-import br.odb.utils.math.Vec3;
+import br.odb.gameutils.math.Vec3;
 import br.odb.vintage.GameEngine;
 import br.odb.vintage.ScenePresenter;
 
@@ -119,17 +119,16 @@ public class NodeHunterDesktop {
 			}
 
 			void initDefaultActorModel() throws FileNotFoundException {
-				WavefrontMaterialLoader matLoader = new WavefrontMaterialLoader();
-				List<Material> mats = matLoader.parseMaterials(new FileInputStream(
-						System.getProperty("user.home") + "/gargoyle.mtl"));
-
-				WavefrontOBJLoader loader = new WavefrontOBJLoader(
-						new GeneralTriangleFactory());
-				ArrayList<TriangleMesh> mesh = (ArrayList<TriangleMesh>) loader
-						.loadMeshes(new FileInputStream(System.getProperty("user.home")
-								+ "/gargoyle.obj"), mats);
-
-				canvas.setDefaultMeshForActor( mesh.get( 0 ) );
+//				WavefrontMaterialLoader matLoader = new WavefrontMaterialLoader();
+//
+//				SimpleWavefrontOBJLoader loader = new SimpleWavefrontOBJLoader(
+//						new GeneralTriangleFactory());
+//				ArrayList<TriangleMesh> mesh = (ArrayList<TriangleMesh>) loader
+//						.loadMeshes(new FileInputStream(
+//								"/gargoyle.obj"), matLoader.parseMaterials(new FileInputStream(
+//								"/gargoyle.mtl")));
+//
+//				canvas.setDefaultMeshForActor(mesh.get(0));
 			}
 			
 			private void createScene(GameView3D canvas) {

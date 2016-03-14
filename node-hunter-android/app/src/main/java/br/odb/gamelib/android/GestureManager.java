@@ -4,7 +4,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
-import br.odb.utils.math.Vec2;
+import br.odb.gameutils.math.Vec2;
 
 public class GestureManager implements OnTouchListener {
 	/**

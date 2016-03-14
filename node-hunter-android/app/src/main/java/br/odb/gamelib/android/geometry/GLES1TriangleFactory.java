@@ -3,7 +3,6 @@ package br.odb.gamelib.android.geometry;
 import br.odb.libstrip.GeneralTriangle;
 import br.odb.libstrip.Material;
 import br.odb.libstrip.builders.GeneralTriangleFactory;
-import br.odb.utils.math.Vec3;
 
 public class GLES1TriangleFactory extends GeneralTriangleFactory {
 
@@ -19,7 +18,7 @@ public class GLES1TriangleFactory extends GeneralTriangleFactory {
 
 	public GLES1Triangle makeTrig(float x0, float y0, float z0, float x1,
 
-	float y1, float z1, float x2, float y2, float z2, Material color, Vec3 lightDirection) {
+	float y1, float z1, float x2, float y2, float z2, Material color) {
 		GLES1Triangle toReturn = new GLES1Triangle();
 		toReturn.x0 = x0;
 		toReturn.x1 = x1;
@@ -32,16 +31,6 @@ public class GLES1TriangleFactory extends GeneralTriangleFactory {
 		toReturn.z2 = z2;
 
         toReturn.material = color;
-
-		float lightFactor = 1.0f;
-
-        lightDirection = new Vec3( 1.0f, 1.0f, 1.0f );
-		
-		if ( lightDirection != null ) {
-			
-			Vec3 normal = toReturn.makeNormal();
-			lightFactor = 0.8f + ( normal.dotProduct( lightDirection.normalized() ) * 0.2f );
-		}
 		
 		toReturn.flush();
 		return toReturn;
@@ -49,8 +38,8 @@ public class GLES1TriangleFactory extends GeneralTriangleFactory {
 
 	public GLES1Triangle makeTrigFrom(GeneralTriangle gt) {
 
-		GLES1Triangle toReturn = makeTrig( gt.x0, gt.y0, gt.z0, gt.x1, gt.y1, gt.z1, gt.x2, gt.y2, gt.z2, gt.material, null);
-
+		GLES1Triangle toReturn = makeTrig( gt.x0, gt.y0, gt.z0, gt.x1, gt.y1, gt.z1, gt.x2, gt.y2, gt.z2, gt.material);
+		toReturn.setTextureCoordinates( gt.getTextureCoordinates() );
 		toReturn.hint = gt.hint;
 
 		return toReturn;

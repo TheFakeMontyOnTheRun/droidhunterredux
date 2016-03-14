@@ -24,14 +24,14 @@ import br.odb.gamelib.android.geometry.GLES1Triangle;
 import br.odb.gamelib.android.geometry.GLES1TriangleFactory;
 import br.odb.gamelib.android.geometry.GLESVertexArrayManager;
 import br.odb.liboldfart.WavefrontMaterialLoader;
-import br.odb.liboldfart.WavefrontOBJLoader;
+import br.odb.liboldfart.SimpleWavefrontOBJLoader;
 import br.odb.libscene.CameraNode;
 import br.odb.libscene.LightNode;
 import br.odb.libstrip.GeneralTriangle;
 import br.odb.libstrip.Material;
 import br.odb.libstrip.TriangleMesh;
-import br.odb.utils.Color;
-import br.odb.utils.math.Vec3;
+import br.odb.gameutils.Color;
+import br.odb.gameutils.math.Vec3;
 import br.odb.vintage.SceneRenderer;
 import br.odb.vintage.actor.ActorSceneNode;
 
@@ -251,12 +251,11 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     public void initDefaultMeshForActor() throws IOException {
         TriangleMesh enemy;
         WavefrontMaterialLoader matLoader = new WavefrontMaterialLoader();
-        List<Material> mats = matLoader.parseMaterials( context.getAssets().open( "gargoyle.mtl" ) );
 
-        WavefrontOBJLoader loader = new WavefrontOBJLoader( new GLES1TriangleFactory() );
-        ArrayList<TriangleMesh> mesh = (ArrayList<TriangleMesh>) loader.loadMeshes( context.getAssets().open("gargoyle.obj"), mats );
+        SimpleWavefrontOBJLoader loader = new SimpleWavefrontOBJLoader( new GLES1TriangleFactory() );
+        ArrayList<TriangleMesh> mesh = (ArrayList<TriangleMesh>) loader.loadMeshes( context.getAssets().open("gargoyle.obj"), matLoader.parseMaterials( context.getAssets().open( "gargoyle.mtl" ) ) );
 
-        enemy = mesh.get( 0 );
+        enemy = mesh.get(0);
 
         for ( GeneralTriangle gt : enemy.faces ) {
             sampleEnemy.faces.add(GLES1TriangleFactory.getInstance().makeTrigFrom(gt));

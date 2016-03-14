@@ -1,19 +1,22 @@
 package br.odb.nodehunter;
 
+import android.graphics.Path;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.util.List;
 
 import br.odb.gamelib.android.geometry.GLES1TriangleFactory;
+import br.odb.gameutils.Direction;
 import br.odb.libscene.GroupSector;
 import br.odb.libscene.SceneNode;
 import br.odb.libscene.World;
 import br.odb.libscene.builders.WorldLoader;
 import br.odb.libscene.util.SceneTesselator;
-import br.odb.utils.FileServerDelegate;
-import br.odb.utils.math.Vec3;
+import br.odb.gameapp.FileServerDelegate;
+import br.odb.gameutils.math.Vec3;
 import br.odb.vintage.GameEngine;
 import br.odb.vintage.ScenePresenter;
 

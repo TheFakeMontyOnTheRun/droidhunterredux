@@ -42,9 +42,9 @@ import br.odb.libstrip.GeneralTriangle;
 import br.odb.libstrip.TriangleMesh;
 import br.odb.libstrip.Material;
 import br.odb.libstrip.builders.GeneralTriangleFactory;
-import br.odb.utils.Color;
-import br.odb.utils.Direction;
-import br.odb.utils.math.Vec3;
+import br.odb.gameutils.Color;
+import br.odb.gameutils.Direction;
+import br.odb.gameutils.math.Vec3;
 import br.odb.vintage.GameEngine;
 // GL2 constants
 import br.odb.vintage.SceneRenderer;
@@ -82,8 +82,7 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 	}
 
 	public GeneralTriangle changeHue(GeneralTriangle trig) {
-		trig.material = new Material(null, new Color(trig.material.mainColor),
-				null, null);
+		trig.material = Material.makeWithColor( new Color(trig.material.mainColor));
 
 		 switch (trig.hint) {
 			 case W:

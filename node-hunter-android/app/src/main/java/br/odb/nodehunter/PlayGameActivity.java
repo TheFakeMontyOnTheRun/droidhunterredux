@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import br.odb.libscene.CameraNode;
-import br.odb.utils.FileServerDelegate;
+import br.odb.gameapp.FileServerDelegate;
 import br.odb.vintage.GameEngine;
 import br.odb.vintage.ScenePresenter;
 
