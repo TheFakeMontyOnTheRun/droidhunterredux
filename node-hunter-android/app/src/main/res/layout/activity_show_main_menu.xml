@@ -12,12 +12,12 @@
         android:text="VR Mode"
         android:id="@+id/chkVRMode" />
 
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Connect to multiplayer server"
-        android:id="@+id/chkMultiplayer"
-        android:checked="false" />
+    <!--<CheckBox-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Connect to multiplayer server"-->
+        <!--android:id="@+id/chkMultiplayer"-->
+        <!--android:checked="false" />-->
 
     <Button
         android:layout_width="fill_parent"

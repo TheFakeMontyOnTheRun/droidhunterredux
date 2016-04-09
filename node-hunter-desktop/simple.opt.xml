@@ -1,0 +1,1612 @@
+<world>
+<id>root</id>
+<position>
+0.0
+0.0
+0.0
+</position>
+<size>
+1.0
+1.0
+1.0
+</size>
+
+<group><id>Cube.003</id>
+<position>
+78.818
+16.339
+-89.943
+</position>
+<size>
+65.02
+64.677
+64.999
+</size>
+<material dir='U'  color = '#a3a3a3'  texture = 'Desktop/check.png'  /><material dir='N'  color = '#a3a3a3'  texture = 'Desktop/check.png'  /><material dir='S'  color = '#a3a3a3'  texture = 'Desktop/check.png'  /><material dir='D'  color = '#a3a3a3'  texture = 'Desktop/check.png'  /><material dir='E'  color = '#a3a3a3'  texture = 'Desktop/check.png'  /><material dir='W'  color = '#a3a3a3'  texture = 'Desktop/check.png'  />
+<sector><id>Cube.003</id>
+<position>
+0.0
+0.0
+0.0
+</position>
+<size>
+22.056
+36.036
+1.362999
+</size>
+<connection dir ='E' link ='Cube.003_6'/>
+<connection dir ='S' link ='Cube.003_4'/>
+<connection dir ='U' link ='Cube.003_2'/>
+
+</sector>
+<sector><id>Cube.003_1</id>
+<position>
+0.0
+0.0
+63.196
+</position>
+<size>
+22.056
+36.036
+1.8030014
+</size>
+<connection dir ='N' link ='Cube.003_79'/>
+<connection dir ='E' link ='Cube.003_7'/>
+<connection dir ='U' link ='Cube.003_3'/>
+
+</sector>
+<sector><id>Cube.003_3</id>
+<position>
+0.0
+36.036
+63.196
+</position>
+<size>
+22.056
+12.621002
+1.8030014
+</size>
+<connection dir ='N' link ='Cube.003_78'/>
+<connection dir ='E' link ='Cube.003_8'/>
+<connection dir ='D' link ='Cube.003_1'/>
+<connection dir ='U' link ='Cube.003_72'/>
+
+</sector>
+<sector><id>Cube.003_2</id>
+<position>
+0.0
+36.036
+0.0
+</position>
+<size>
+22.056
+12.621002
+1.362999
+</size>
+<connection dir ='E' link ='Cube.003_9'/>
+<connection dir ='S' link ='Cube.003_5'/>
+<connection dir ='D' link ='Cube.003'/>
+<connection dir ='U' link ='Cube.003_73'/>
+
+</sector>
+<sector><id>Cube.003_5</id>
+<position>
+0.0
+36.036
+1.362999
+</position>
+<size>
+22.056
+12.621002
+61.412003
+</size>
+<connection dir ='N' link ='Cube.003_2'/>
+<connection dir ='E' link ='Cube.003_10'/>
+<connection dir ='S' link ='Cube.003_93'/>
+<connection dir ='W' link ='Cube.002_17'/>
+<connection dir ='D' link ='Cube.003_4'/>
+<connection dir ='U' link ='Cube.003_74'/>
+
+</sector>
+<sector><id>Cube.003_4</id>
+<position>
+0.0
+0.0
+1.362999
+</position>
+<size>
+22.056
+36.036
+61.412003
+</size>
+<connection dir ='N' link ='Cube.003'/>
+<connection dir ='E' link ='Cube.003_11'/>
+<connection dir ='S' link ='Cube.003_94'/>
+<connection dir ='U' link ='Cube.003_5'/>
+
+</sector>
+<sector><id>Cube.003_11</id>
+<position>
+22.056
+0.0
+1.362999
+</position>
+<size>
+42.963997
+36.036
+61.412003
+</size>
+<connection dir ='N' link ='Cube.003_6'/>
+<connection dir ='S' link ='Cube.003_95'/>
+<connection dir ='W' link ='Cube.003_4'/>
+<connection dir ='U' link ='Cube.003_10'/>
+
+</sector>
+<sector><id>Cube.003_9</id>
+<position>
+22.056
+36.036
+0.0
+</position>
+<size>
+42.963997
+12.621002
+1.362999
+</size>
+<connection dir ='S' link ='Cube.003_10'/>
+<connection dir ='W' link ='Cube.003_2'/>
+<connection dir ='D' link ='Cube.003_6'/>
+<connection dir ='U' link ='Cube.003_75'/>
+
+</sector>
+<sector><id>Cube.003_10</id>
+<position>
+22.056
+36.036
+1.362999
+</position>
+<size>
+42.963997
+12.621002
+61.412003
+</size>
+<connection dir ='N' link ='Cube.003_9'/>
+<connection dir ='S' link ='Cube.003_96'/>
+<connection dir ='W' link ='Cube.003_5'/>
+<connection dir ='D' link ='Cube.003_11'/>
+<connection dir ='U' link ='Cube.003_76'/>
+
+</sector>
+<sector><id>Cube.003_7</id>
+<position>
+22.056
+0.0
+63.196
+</position>
+<size>
+42.963997
+36.036
+1.8030014
+</size>
+<connection dir ='N' link ='Cube.003_80'/>
+<connection dir ='W' link ='Cube.003_1'/>
+<connection dir ='U' link ='Cube.003_8'/>
+
+</sector>
+<sector><id>Cube.003_8</id>
+<position>
+22.056
+36.036
+63.196
+</position>
+<size>
+42.963997
+12.621002
+1.8030014
+</size>
+<connection dir ='N' link ='Cube.003_81'/>
+<connection dir ='W' link ='Cube.003_3'/>
+<connection dir ='D' link ='Cube.003_7'/>
+<connection dir ='U' link ='Cube.003_77'/>
+
+</sector>
+<sector><id>Cube.003_6</id>
+<position>
+22.056
+0.0
+0.0
+</position>
+<size>
+42.963997
+36.036
+1.362999
+</size>
+<connection dir ='S' link ='Cube.003_11'/>
+<connection dir ='W' link ='Cube.003'/>
+<connection dir ='U' link ='Cube.003_9'/>
+
+</sector>
+<sector><id>Cube.003_75</id>
+<position>
+22.056
+48.657
+0.0
+</position>
+<size>
+42.963997
+16.02
+1.362999
+</size>
+<connection dir ='S' link ='Cube.003_76'/>
+<connection dir ='W' link ='Cube.003_73'/>
+<connection dir ='D' link ='Cube.003_9'/>
+
+</sector>
+<sector><id>Cube.003_76</id>
+<position>
+22.056
+48.657
+1.362999
+</position>
+<size>
+42.963997
+16.02
+61.412003
+</size>
+<connection dir ='N' link ='Cube.003_75'/>
+<connection dir ='S' link ='Cube.003_97'/>
+<connection dir ='W' link ='Cube.003_74'/>
+<connection dir ='D' link ='Cube.003_10'/>
+
+</sector>
+<sector><id>Cube.003_77</id>
+<position>
+22.056
+48.657
+63.196
+</position>
+<size>
+42.963997
+16.02
+1.8030014
+</size>
+<connection dir ='N' link ='Cube.003_82'/>
+<connection dir ='W' link ='Cube.003_72'/>
+<connection dir ='D' link ='Cube.003_8'/>
+
+</sector>
+<sector><id>Cube.003_73</id>
+<position>
+0.0
+48.657
+0.0
+</position>
+<size>
+22.056
+16.02
+1.362999
+</size>
+<connection dir ='E' link ='Cube.003_75'/>
+<connection dir ='S' link ='Cube.003_74'/>
+<connection dir ='D' link ='Cube.003_2'/>
+
+</sector>
+<sector><id>Cube.003_74</id>
+<position>
+0.0
+48.657
+1.362999
+</position>
+<size>
+22.056
+16.02
+61.412003
+</size>
+<connection dir ='N' link ='Cube.003_73'/>
+<connection dir ='E' link ='Cube.003_76'/>
+<connection dir ='S' link ='Cube.003_98'/>
+<connection dir ='W' link ='Cube.002_19'/>
+<connection dir ='D' link ='Cube.003_5'/>
+<connection dir ='U' link ='Cube.002_14'/>
+
+</sector>
+<sector><id>Cube.003_72</id>
+<position>
+0.0
+48.657
+63.196
+</position>
+<size>
+22.056
+16.02
+1.8030014
+</size>
+<connection dir ='N' link ='Cube.003_83'/>
+<connection dir ='E' link ='Cube.003_77'/>
+<connection dir ='D' link ='Cube.003_3'/>
+
+</sector>
+<sector><id>Cube.003_79</id>
+<position>
+0.0
+0.0
+62.982002
+</position>
+<size>
+22.056
+36.036
+0.21399689
+</size>
+<connection dir ='N' link ='Cube.003_94'/>
+<connection dir ='E' link ='Cube.003_80'/>
+<connection dir ='S' link ='Cube.003_1'/>
+<connection dir ='U' link ='Cube.003_78'/>
+
+</sector>
+<sector><id>Cube.003_83</id>
+<position>
+0.0
+48.657
+62.982002
+</position>
+<size>
+22.056
+16.02
+0.21399689
+</size>
+<connection dir ='N' link ='Cube.003_98'/>
+<connection dir ='E' link ='Cube.003_82'/>
+<connection dir ='S' link ='Cube.003_72'/>
+<connection dir ='W' link ='Cube.002_28'/>
+<connection dir ='D' link ='Cube.003_78'/>
+<connection dir ='U' link ='Cube.002_23'/>
+
+</sector>
+<sector><id>Cube.003_80</id>
+<position>
+22.056
+0.0
+62.982002
+</position>
+<size>
+42.963997
+36.036
+0.21399689
+</size>
+<connection dir ='N' link ='Cube.003_95'/>
+<connection dir ='S' link ='Cube.003_7'/>
+<connection dir ='W' link ='Cube.003_79'/>
+<connection dir ='U' link ='Cube.003_81'/>
+
+</sector>
+<sector><id>Cube.003_82</id>
+<position>
+22.056
+48.657
+62.982002
+</position>
+<size>
+42.963997
+16.02
+0.21399689
+</size>
+<connection dir ='N' link ='Cube.003_97'/>
+<connection dir ='S' link ='Cube.003_77'/>
+<connection dir ='W' link ='Cube.003_83'/>
+<connection dir ='D' link ='Cube.003_81'/>
+
+</sector>
+<sector><id>Cube.003_78</id>
+<position>
+0.0
+36.036
+62.982002
+</position>
+<size>
+22.056
+12.621002
+0.21399689
+</size>
+<connection dir ='N' link ='Cube.003_93'/>
+<connection dir ='E' link ='Cube.003_81'/>
+<connection dir ='S' link ='Cube.003_3'/>
+<connection dir ='W' link ='Cube.002_26'/>
+<connection dir ='D' link ='Cube.003_79'/>
+<connection dir ='U' link ='Cube.003_83'/>
+
+</sector>
+<sector><id>Cube.003_81</id>
+<position>
+22.056
+36.036
+62.982002
+</position>
+<size>
+42.963997
+12.621002
+0.21399689
+</size>
+<connection dir ='N' link ='Cube.003_96'/>
+<connection dir ='S' link ='Cube.003_8'/>
+<connection dir ='W' link ='Cube.003_78'/>
+<connection dir ='D' link ='Cube.003_80'/>
+<connection dir ='U' link ='Cube.003_82'/>
+
+</sector>
+<sector><id>Cube.003_97</id>
+<position>
+22.056
+48.657
+62.775
+</position>
+<size>
+42.963997
+16.02
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.003_76'/>
+<connection dir ='S' link ='Cube.003_82'/>
+<connection dir ='W' link ='Cube.003_98'/>
+<connection dir ='D' link ='Cube.003_96'/>
+
+</sector>
+<sector><id>Cube.003_93</id>
+<position>
+0.0
+36.036
+62.775
+</position>
+<size>
+22.056
+12.621002
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.003_5'/>
+<connection dir ='E' link ='Cube.003_96'/>
+<connection dir ='S' link ='Cube.003_78'/>
+<connection dir ='W' link ='Cube.002_90'/>
+<connection dir ='D' link ='Cube.003_94'/>
+<connection dir ='U' link ='Cube.003_98'/>
+
+</sector>
+<sector><id>Cube.003_98</id>
+<position>
+0.0
+48.657
+62.775
+</position>
+<size>
+22.056
+16.02
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.003_74'/>
+<connection dir ='E' link ='Cube.003_97'/>
+<connection dir ='S' link ='Cube.003_83'/>
+<connection dir ='W' link ='Cube.002_92'/>
+<connection dir ='D' link ='Cube.003_93'/>
+<connection dir ='U' link ='Cube.002_87'/>
+
+</sector>
+<sector><id>Cube.003_95</id>
+<position>
+22.056
+0.0
+62.775
+</position>
+<size>
+42.963997
+36.036
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.003_11'/>
+<connection dir ='S' link ='Cube.003_80'/>
+<connection dir ='W' link ='Cube.003_94'/>
+<connection dir ='U' link ='Cube.003_96'/>
+
+</sector>
+<sector><id>Cube.003_96</id>
+<position>
+22.056
+36.036
+62.775
+</position>
+<size>
+42.963997
+12.621002
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.003_10'/>
+<connection dir ='S' link ='Cube.003_81'/>
+<connection dir ='W' link ='Cube.003_93'/>
+<connection dir ='D' link ='Cube.003_95'/>
+<connection dir ='U' link ='Cube.003_97'/>
+
+</sector>
+<sector><id>Cube.003_94</id>
+<position>
+0.0
+0.0
+62.775
+</position>
+<size>
+22.056
+36.036
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.003_4'/>
+<connection dir ='E' link ='Cube.003_95'/>
+<connection dir ='S' link ='Cube.003_79'/>
+<connection dir ='U' link ='Cube.003_93'/>
+
+</sector>
+</group>
+<group><id>Cube.002</id>
+<position>
+39.021
+52.375
+-88.58
+</position>
+<size>
+61.853
+61.526
+61.833
+</size>
+<material dir='U'  color = '#a34077'  /><material dir='N'  color = '#a34077'  /><material dir='S'  color = '#a34077'  /><material dir='D'  color = '#a34077'  /><material dir='E'  color = '#a34077'  /><material dir='W'  color = '#a34077'  />
+<sector><id>Cube.002</id>
+<position>
+0.0
+0.0
+0.0
+</position>
+<size>
+21.701
+12.621002
+61.412003
+</size>
+<connection dir ='N' link ='Cube.001_33'/>
+<connection dir ='E' link ='Cube.002_17'/>
+<connection dir ='S' link ='Cube.002_84'/>
+<connection dir ='W' link ='Cube.001_39'/>
+<connection dir ='D' link ='Cube.001_42'/>
+<connection dir ='U' link ='Cube.002_15'/>
+
+</sector>
+<sector><id>Cube.002_12</id>
+<position>
+0.0
+28.641006
+0.0
+</position>
+<size>
+21.701
+32.884995
+61.412003
+</size>
+<connection dir ='E' link ='Cube.002_18'/>
+<connection dir ='S' link ='Cube.002_85'/>
+<connection dir ='D' link ='Cube.002_15'/>
+
+</sector>
+<sector><id>Cube.002_14</id>
+<position>
+39.797
+28.641006
+0.0
+</position>
+<size>
+22.056
+32.884995
+61.412003
+</size>
+<connection dir ='S' link ='Cube.002_87'/>
+<connection dir ='W' link ='Cube.002_18'/>
+<connection dir ='D' link ='Cube.003_74'/>
+
+</sector>
+<sector><id>Cube.002_15</id>
+<position>
+0.0
+12.621002
+0.0
+</position>
+<size>
+21.701
+16.020004
+61.412003
+</size>
+<connection dir ='E' link ='Cube.002_19'/>
+<connection dir ='S' link ='Cube.002_88'/>
+<connection dir ='D' link ='Cube.002'/>
+<connection dir ='U' link ='Cube.002_12'/>
+
+</sector>
+<sector><id>Cube.002_17</id>
+<position>
+21.701
+0.0
+0.0
+</position>
+<size>
+18.096
+12.621002
+61.412003
+</size>
+<connection dir ='E' link ='Cube.003_5'/>
+<connection dir ='S' link ='Cube.002_90'/>
+<connection dir ='W' link ='Cube.002'/>
+<connection dir ='U' link ='Cube.002_19'/>
+
+</sector>
+<sector><id>Cube.002_18</id>
+<position>
+21.701
+28.641006
+0.0
+</position>
+<size>
+18.096
+32.884995
+61.412003
+</size>
+<connection dir ='E' link ='Cube.002_14'/>
+<connection dir ='S' link ='Cube.002_91'/>
+<connection dir ='W' link ='Cube.002_12'/>
+<connection dir ='D' link ='Cube.002_19'/>
+
+</sector>
+<sector><id>Cube.002_19</id>
+<position>
+21.701
+12.621002
+0.0
+</position>
+<size>
+18.096
+16.020004
+61.412003
+</size>
+<connection dir ='E' link ='Cube.003_74'/>
+<connection dir ='S' link ='Cube.002_92'/>
+<connection dir ='W' link ='Cube.002_15'/>
+<connection dir ='D' link ='Cube.002_17'/>
+<connection dir ='U' link ='Cube.002_18'/>
+
+</sector>
+<sector><id>Cube.002_21</id>
+<position>
+0.0
+28.641006
+61.619003
+</position>
+<size>
+21.701
+32.884995
+0.21399689
+</size>
+<connection dir ='N' link ='Cube.002_85'/>
+<connection dir ='E' link ='Cube.002_27'/>
+<connection dir ='D' link ='Cube.002_24'/>
+
+</sector>
+<sector><id>Cube.002_24</id>
+<position>
+0.0
+12.621002
+61.619003
+</position>
+<size>
+21.701
+16.020004
+0.21399689
+</size>
+<connection dir ='N' link ='Cube.002_88'/>
+<connection dir ='E' link ='Cube.002_28'/>
+<connection dir ='D' link ='Cube.002_20'/>
+<connection dir ='U' link ='Cube.002_21'/>
+
+</sector>
+<sector><id>Cube.002_26</id>
+<position>
+21.701
+0.0
+61.619003
+</position>
+<size>
+18.096
+12.621002
+0.21399689
+</size>
+<connection dir ='N' link ='Cube.002_90'/>
+<connection dir ='E' link ='Cube.003_78'/>
+<connection dir ='W' link ='Cube.002_20'/>
+<connection dir ='U' link ='Cube.002_28'/>
+
+</sector>
+<sector><id>Cube.002_20</id>
+<position>
+0.0
+0.0
+61.619003
+</position>
+<size>
+21.701
+12.621002
+0.21399689
+</size>
+<connection dir ='N' link ='Cube.002_84'/>
+<connection dir ='E' link ='Cube.002_26'/>
+<connection dir ='U' link ='Cube.002_24'/>
+
+</sector>
+<sector><id>Cube.002_27</id>
+<position>
+21.701
+28.641006
+61.619003
+</position>
+<size>
+18.096
+32.884995
+0.21399689
+</size>
+<connection dir ='N' link ='Cube.002_91'/>
+<connection dir ='E' link ='Cube.002_23'/>
+<connection dir ='W' link ='Cube.002_21'/>
+<connection dir ='D' link ='Cube.002_28'/>
+
+</sector>
+<sector><id>Cube.002_23</id>
+<position>
+39.797
+28.641006
+61.619003
+</position>
+<size>
+22.056
+32.884995
+0.21399689
+</size>
+<connection dir ='N' link ='Cube.002_87'/>
+<connection dir ='W' link ='Cube.002_27'/>
+<connection dir ='D' link ='Cube.003_83'/>
+
+</sector>
+<sector><id>Cube.002_28</id>
+<position>
+21.701
+12.621002
+61.619003
+</position>
+<size>
+18.096
+16.020004
+0.21399689
+</size>
+<connection dir ='N' link ='Cube.002_92'/>
+<connection dir ='E' link ='Cube.003_83'/>
+<connection dir ='W' link ='Cube.002_24'/>
+<connection dir ='D' link ='Cube.002_26'/>
+<connection dir ='U' link ='Cube.002_27'/>
+
+</sector>
+<sector><id>Cube.002_92</id>
+<position>
+21.701
+12.621002
+61.412003
+</position>
+<size>
+18.096
+16.020004
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.002_19'/>
+<connection dir ='E' link ='Cube.003_98'/>
+<connection dir ='S' link ='Cube.002_28'/>
+<connection dir ='W' link ='Cube.002_88'/>
+<connection dir ='D' link ='Cube.002_90'/>
+<connection dir ='U' link ='Cube.002_91'/>
+
+</sector>
+<sector><id>Cube.002_87</id>
+<position>
+39.797
+28.641006
+61.412003
+</position>
+<size>
+22.056
+32.884995
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.002_14'/>
+<connection dir ='S' link ='Cube.002_23'/>
+<connection dir ='W' link ='Cube.002_91'/>
+<connection dir ='D' link ='Cube.003_98'/>
+
+</sector>
+<sector><id>Cube.002_84</id>
+<position>
+0.0
+0.0
+61.412003
+</position>
+<size>
+21.701
+12.621002
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.002'/>
+<connection dir ='E' link ='Cube.002_90'/>
+<connection dir ='S' link ='Cube.002_20'/>
+<connection dir ='W' link ='Cube.001_51'/>
+<connection dir ='D' link ='Cube.001_54'/>
+<connection dir ='U' link ='Cube.002_88'/>
+
+</sector>
+<sector><id>Cube.002_85</id>
+<position>
+0.0
+28.641006
+61.412003
+</position>
+<size>
+21.701
+32.884995
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.002_12'/>
+<connection dir ='E' link ='Cube.002_91'/>
+<connection dir ='S' link ='Cube.002_21'/>
+<connection dir ='D' link ='Cube.002_88'/>
+
+</sector>
+<sector><id>Cube.002_91</id>
+<position>
+21.701
+28.641006
+61.412003
+</position>
+<size>
+18.096
+32.884995
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.002_18'/>
+<connection dir ='E' link ='Cube.002_87'/>
+<connection dir ='S' link ='Cube.002_27'/>
+<connection dir ='W' link ='Cube.002_85'/>
+<connection dir ='D' link ='Cube.002_92'/>
+
+</sector>
+<sector><id>Cube.002_88</id>
+<position>
+0.0
+12.621002
+61.412003
+</position>
+<size>
+21.701
+16.020004
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.002_15'/>
+<connection dir ='E' link ='Cube.002_92'/>
+<connection dir ='S' link ='Cube.002_24'/>
+<connection dir ='D' link ='Cube.002_84'/>
+<connection dir ='U' link ='Cube.002_85'/>
+
+</sector>
+<sector><id>Cube.002_90</id>
+<position>
+21.701
+0.0
+61.412003
+</position>
+<size>
+18.096
+12.621002
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.002_17'/>
+<connection dir ='E' link ='Cube.003_93'/>
+<connection dir ='S' link ='Cube.002_26'/>
+<connection dir ='W' link ='Cube.002_84'/>
+<connection dir ='U' link ='Cube.002_92'/>
+
+</sector>
+</group>
+<group><id>Cube.001</id>
+<position>
+-1.131
+3.47
+-88.794
+</position>
+<size>
+61.853
+61.526
+61.833
+</size>
+<material dir='U'  color = '#a31e20'  /><material dir='N'  color = '#a31e20'  /><material dir='S'  color = '#a31e20'  /><material dir='D'  color = '#a31e20'  /><material dir='E'  color = '#a31e20'  /><material dir='W'  color = '#a31e20'  />
+<sector><id>Cube.001</id>
+<position>
+0.0
+0.0
+0.0
+</position>
+<size>
+22.981003
+32.624
+0.21399689
+</size>
+<connection dir ='E' link ='Cube.001_36'/>
+<connection dir ='S' link ='Cube.001_30'/>
+<connection dir ='U' link ='Cube.001_40'/>
+
+</sector>
+<sector><id>Cube.001_29</id>
+<position>
+0.0
+48.905
+0.0
+</position>
+<size>
+22.981003
+12.621002
+0.21399689
+</size>
+<connection dir ='N' link ='Cube_61'/>
+<connection dir ='E' link ='Cube.001_37'/>
+<connection dir ='S' link ='Cube.001_31'/>
+<connection dir ='W' link ='Cube_63'/>
+<connection dir ='D' link ='Cube.001_40'/>
+<connection dir ='U' link ='Cube_70'/>
+
+</sector>
+<sector><id>Cube.001_30</id>
+<position>
+0.0
+0.0
+0.21399689
+</position>
+<size>
+22.981003
+32.624
+61.412003
+</size>
+<connection dir ='N' link ='Cube.001'/>
+<connection dir ='E' link ='Cube.001_38'/>
+<connection dir ='S' link ='Cube.001_46'/>
+<connection dir ='U' link ='Cube.001_41'/>
+
+</sector>
+<sector><id>Cube.001_31</id>
+<position>
+0.0
+48.905
+0.21399689
+</position>
+<size>
+22.981003
+12.621002
+61.412003
+</size>
+<connection dir ='N' link ='Cube.001_29'/>
+<connection dir ='E' link ='Cube.001_39'/>
+<connection dir ='S' link ='Cube.001_47'/>
+<connection dir ='W' link ='Cube_57'/>
+<connection dir ='D' link ='Cube.001_41'/>
+<connection dir ='U' link ='Cube_69'/>
+
+</sector>
+<sector><id>Cube.001_34</id>
+<position>
+40.152
+0.0
+0.21399689
+</position>
+<size>
+21.701
+32.624
+61.412003
+</size>
+<connection dir ='N' link ='Cube.001_32'/>
+<connection dir ='S' link ='Cube.001_48'/>
+<connection dir ='W' link ='Cube.001_38'/>
+<connection dir ='U' link ='Cube.001_42'/>
+
+</sector>
+<sector><id>Cube.001_32</id>
+<position>
+40.152
+0.0
+0.0
+</position>
+<size>
+21.701
+32.624
+0.21399689
+</size>
+<connection dir ='S' link ='Cube.001_34'/>
+<connection dir ='W' link ='Cube.001_36'/>
+<connection dir ='U' link ='Cube.001_43'/>
+
+</sector>
+<sector><id>Cube.001_33</id>
+<position>
+40.152
+48.905
+0.0
+</position>
+<size>
+21.701
+12.621002
+0.21399689
+</size>
+<connection dir ='S' link ='Cube.002'/>
+<connection dir ='W' link ='Cube.001_37'/>
+<connection dir ='D' link ='Cube.001_43'/>
+
+</sector>
+<sector><id>Cube.001_38</id>
+<position>
+22.981003
+0.0
+0.21399689
+</position>
+<size>
+17.170998
+32.624
+61.412003
+</size>
+<connection dir ='N' link ='Cube.001_36'/>
+<connection dir ='E' link ='Cube.001_34'/>
+<connection dir ='S' link ='Cube.001_50'/>
+<connection dir ='W' link ='Cube.001_30'/>
+<connection dir ='U' link ='Cube.001_44'/>
+
+</sector>
+<sector><id>Cube.001_36</id>
+<position>
+22.981003
+0.0
+0.0
+</position>
+<size>
+17.170998
+32.624
+0.21399689
+</size>
+<connection dir ='E' link ='Cube.001_32'/>
+<connection dir ='S' link ='Cube.001_38'/>
+<connection dir ='W' link ='Cube.001'/>
+<connection dir ='U' link ='Cube.001_45'/>
+
+</sector>
+<sector><id>Cube.001_39</id>
+<position>
+22.981003
+48.905
+0.21399689
+</position>
+<size>
+17.170998
+12.621002
+61.412003
+</size>
+<connection dir ='N' link ='Cube.001_37'/>
+<connection dir ='E' link ='Cube.002'/>
+<connection dir ='S' link ='Cube.001_51'/>
+<connection dir ='W' link ='Cube.001_31'/>
+<connection dir ='D' link ='Cube.001_44'/>
+
+</sector>
+<sector><id>Cube.001_37</id>
+<position>
+22.981003
+48.905
+0.0
+</position>
+<size>
+17.170998
+12.621002
+0.21399689
+</size>
+<connection dir ='E' link ='Cube.001_33'/>
+<connection dir ='S' link ='Cube.001_39'/>
+<connection dir ='W' link ='Cube.001_29'/>
+<connection dir ='D' link ='Cube.001_45'/>
+
+</sector>
+<sector><id>Cube.001_43</id>
+<position>
+40.152
+32.624
+0.0
+</position>
+<size>
+21.701
+16.280998
+0.21399689
+</size>
+<connection dir ='S' link ='Cube.001_42'/>
+<connection dir ='W' link ='Cube.001_45'/>
+<connection dir ='D' link ='Cube.001_32'/>
+<connection dir ='U' link ='Cube.001_33'/>
+
+</sector>
+<sector><id>Cube.001_41</id>
+<position>
+0.0
+32.624
+0.21399689
+</position>
+<size>
+22.981003
+16.280998
+61.412003
+</size>
+<connection dir ='N' link ='Cube.001_40'/>
+<connection dir ='E' link ='Cube.001_44'/>
+<connection dir ='S' link ='Cube.001_52'/>
+<connection dir ='W' link ='Cube_55'/>
+<connection dir ='D' link ='Cube.001_30'/>
+<connection dir ='U' link ='Cube.001_31'/>
+
+</sector>
+<sector><id>Cube.001_44</id>
+<position>
+22.981003
+32.624
+0.21399689
+</position>
+<size>
+17.170998
+16.280998
+61.412003
+</size>
+<connection dir ='N' link ='Cube.001_45'/>
+<connection dir ='E' link ='Cube.001_42'/>
+<connection dir ='S' link ='Cube.001_53'/>
+<connection dir ='W' link ='Cube.001_41'/>
+<connection dir ='D' link ='Cube.001_38'/>
+<connection dir ='U' link ='Cube.001_39'/>
+
+</sector>
+<sector><id>Cube.001_40</id>
+<position>
+0.0
+32.624
+0.0
+</position>
+<size>
+22.981003
+16.280998
+0.21399689
+</size>
+<connection dir ='N' link ='Cube_58'/>
+<connection dir ='E' link ='Cube.001_45'/>
+<connection dir ='S' link ='Cube.001_41'/>
+<connection dir ='W' link ='Cube_62'/>
+<connection dir ='D' link ='Cube.001'/>
+<connection dir ='U' link ='Cube.001_29'/>
+
+</sector>
+<sector><id>Cube.001_42</id>
+<position>
+40.152
+32.624
+0.21399689
+</position>
+<size>
+21.701
+16.280998
+61.412003
+</size>
+<connection dir ='N' link ='Cube.001_43'/>
+<connection dir ='S' link ='Cube.001_54'/>
+<connection dir ='W' link ='Cube.001_44'/>
+<connection dir ='D' link ='Cube.001_34'/>
+<connection dir ='U' link ='Cube.002'/>
+
+</sector>
+<sector><id>Cube.001_45</id>
+<position>
+22.981003
+32.624
+0.0
+</position>
+<size>
+17.170998
+16.280998
+0.21399689
+</size>
+<connection dir ='E' link ='Cube.001_43'/>
+<connection dir ='S' link ='Cube.001_44'/>
+<connection dir ='W' link ='Cube.001_40'/>
+<connection dir ='D' link ='Cube.001_36'/>
+<connection dir ='U' link ='Cube.001_37'/>
+
+</sector>
+<sector><id>Cube.001_47</id>
+<position>
+0.0
+48.905
+61.626
+</position>
+<size>
+22.981003
+12.621002
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.001_31'/>
+<connection dir ='E' link ='Cube.001_51'/>
+<connection dir ='D' link ='Cube.001_52'/>
+
+</sector>
+<sector><id>Cube.001_54</id>
+<position>
+40.152
+32.624
+61.626
+</position>
+<size>
+21.701
+16.280998
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.001_42'/>
+<connection dir ='W' link ='Cube.001_53'/>
+<connection dir ='D' link ='Cube.001_48'/>
+<connection dir ='U' link ='Cube.002_84'/>
+
+</sector>
+<sector><id>Cube.001_46</id>
+<position>
+0.0
+0.0
+61.626
+</position>
+<size>
+22.981003
+32.624
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.001_30'/>
+<connection dir ='E' link ='Cube.001_50'/>
+<connection dir ='U' link ='Cube.001_52'/>
+
+</sector>
+<sector><id>Cube.001_51</id>
+<position>
+22.981003
+48.905
+61.626
+</position>
+<size>
+17.170998
+12.621002
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.001_39'/>
+<connection dir ='E' link ='Cube.002_84'/>
+<connection dir ='W' link ='Cube.001_47'/>
+<connection dir ='D' link ='Cube.001_53'/>
+
+</sector>
+<sector><id>Cube.001_53</id>
+<position>
+22.981003
+32.624
+61.626
+</position>
+<size>
+17.170998
+16.280998
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.001_44'/>
+<connection dir ='E' link ='Cube.001_54'/>
+<connection dir ='W' link ='Cube.001_52'/>
+<connection dir ='D' link ='Cube.001_50'/>
+<connection dir ='U' link ='Cube.001_51'/>
+
+</sector>
+<sector><id>Cube.001_50</id>
+<position>
+22.981003
+0.0
+61.626
+</position>
+<size>
+17.170998
+32.624
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.001_38'/>
+<connection dir ='E' link ='Cube.001_48'/>
+<connection dir ='W' link ='Cube.001_46'/>
+<connection dir ='U' link ='Cube.001_53'/>
+
+</sector>
+<sector><id>Cube.001_48</id>
+<position>
+40.152
+0.0
+61.626
+</position>
+<size>
+21.701
+32.624
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.001_34'/>
+<connection dir ='W' link ='Cube.001_50'/>
+<connection dir ='U' link ='Cube.001_54'/>
+
+</sector>
+<sector><id>Cube.001_52</id>
+<position>
+0.0
+32.624
+61.626
+</position>
+<size>
+22.981003
+16.280998
+0.20700073
+</size>
+<connection dir ='N' link ='Cube.001_41'/>
+<connection dir ='E' link ='Cube.001_53'/>
+<connection dir ='D' link ='Cube.001_46'/>
+<connection dir ='U' link ='Cube.001_47'/>
+
+</sector>
+</group>
+<group><id>Cube</id>
+<position>
+-40.003
+36.094
+-89.001
+</position>
+<size>
+61.853
+61.526
+61.833
+</size>
+<material dir='U'  color = '#1509a3'  /><material dir='N'  color = '#1509a3'  /><material dir='S'  color = '#1509a3'  /><material dir='D'  color = '#1509a3'  /><material dir='E'  color = '#1509a3'  /><material dir='W'  color = '#1509a3'  />
+<sector><id>Cube</id>
+<position>
+0.0
+0.0
+0.0
+</position>
+<size>
+38.871998
+16.280998
+0.20700073
+</size>
+<connection dir ='E' link ='Cube_58'/>
+<connection dir ='S' link ='Cube_62'/>
+<connection dir ='U' link ='Cube_56'/>
+
+</sector>
+<sector><id>Cube_55</id>
+<position>
+0.0
+0.0
+0.42099762
+</position>
+<size>
+38.871998
+16.280998
+61.412003
+</size>
+<connection dir ='N' link ='Cube_62'/>
+<connection dir ='E' link ='Cube.001_41'/>
+<connection dir ='U' link ='Cube_57'/>
+
+</sector>
+<sector><id>Cube_57</id>
+<position>
+0.0
+16.280998
+0.42099762
+</position>
+<size>
+38.871998
+12.621002
+61.412003
+</size>
+<connection dir ='N' link ='Cube_63'/>
+<connection dir ='E' link ='Cube.001_31'/>
+<connection dir ='D' link ='Cube_55'/>
+<connection dir ='U' link ='Cube_66'/>
+
+</sector>
+<sector><id>Cube_56</id>
+<position>
+0.0
+16.280998
+0.0
+</position>
+<size>
+38.871998
+12.621002
+0.20700073
+</size>
+<connection dir ='E' link ='Cube_61'/>
+<connection dir ='S' link ='Cube_63'/>
+<connection dir ='D' link ='Cube'/>
+<connection dir ='U' link ='Cube_67'/>
+
+</sector>
+<sector><id>Cube_58</id>
+<position>
+38.871998
+0.0
+0.0
+</position>
+<size>
+22.981003
+16.280998
+0.20700073
+</size>
+<connection dir ='S' link ='Cube.001_40'/>
+<connection dir ='W' link ='Cube'/>
+<connection dir ='U' link ='Cube_61'/>
+
+</sector>
+<sector><id>Cube_61</id>
+<position>
+38.871998
+16.280998
+0.0
+</position>
+<size>
+22.981003
+12.621002
+0.20700073
+</size>
+<connection dir ='S' link ='Cube.001_29'/>
+<connection dir ='W' link ='Cube_56'/>
+<connection dir ='D' link ='Cube_58'/>
+<connection dir ='U' link ='Cube_68'/>
+
+</sector>
+<sector><id>Cube_63</id>
+<position>
+0.0
+16.280998
+0.20700073
+</position>
+<size>
+38.871998
+12.621002
+0.21399689
+</size>
+<connection dir ='N' link ='Cube_56'/>
+<connection dir ='E' link ='Cube.001_29'/>
+<connection dir ='S' link ='Cube_57'/>
+<connection dir ='D' link ='Cube_62'/>
+<connection dir ='U' link ='Cube_71'/>
+
+</sector>
+<sector><id>Cube_62</id>
+<position>
+0.0
+0.0
+0.20700073
+</position>
+<size>
+38.871998
+16.280998
+0.21399689
+</size>
+<connection dir ='N' link ='Cube'/>
+<connection dir ='E' link ='Cube.001_40'/>
+<connection dir ='S' link ='Cube_55'/>
+<connection dir ='U' link ='Cube_63'/>
+
+</sector>
+<sector><id>Cube_70</id>
+<position>
+38.871998
+28.902
+0.20700073
+</position>
+<size>
+22.981003
+32.624
+0.21399689
+</size>
+<connection dir ='N' link ='Cube_68'/>
+<connection dir ='S' link ='Cube_69'/>
+<connection dir ='W' link ='Cube_71'/>
+<connection dir ='D' link ='Cube.001_29'/>
+
+</sector>
+<sector><id>Cube_66</id>
+<position>
+0.0
+28.902
+0.42099762
+</position>
+<size>
+38.871998
+32.624
+61.412003
+</size>
+<connection dir ='N' link ='Cube_71'/>
+<connection dir ='E' link ='Cube_69'/>
+<connection dir ='D' link ='Cube_57'/>
+
+</sector>
+<sector><id>Cube_69</id>
+<position>
+38.871998
+28.902
+0.42099762
+</position>
+<size>
+22.981003
+32.624
+61.412003
+</size>
+<connection dir ='N' link ='Cube_70'/>
+<connection dir ='W' link ='Cube_66'/>
+<connection dir ='D' link ='Cube.001_31'/>
+
+</sector>
+<sector><id>Cube_68</id>
+<position>
+38.871998
+28.902
+0.0
+</position>
+<size>
+22.981003
+32.624
+0.20700073
+</size>
+<connection dir ='S' link ='Cube_70'/>
+<connection dir ='W' link ='Cube_67'/>
+<connection dir ='D' link ='Cube_61'/>
+
+</sector>
+<sector><id>Cube_71</id>
+<position>
+0.0
+28.902
+0.20700073
+</position>
+<size>
+38.871998
+32.624
+0.21399689
+</size>
+<connection dir ='N' link ='Cube_67'/>
+<connection dir ='E' link ='Cube_70'/>
+<connection dir ='S' link ='Cube_66'/>
+<connection dir ='D' link ='Cube_63'/>
+
+</sector>
+<sector><id>Cube_67</id>
+<position>
+0.0
+28.902
+0.0
+</position>
+<size>
+38.871998
+32.624
+0.20700073
+</size>
+<connection dir ='E' link ='Cube_68'/>
+<connection dir ='S' link ='Cube_71'/>
+<connection dir ='D' link ='Cube_56'/>
+
+</sector>
+</group>
+</world>

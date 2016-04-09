@@ -132,7 +132,7 @@ public class GameView3D extends GLCanvas implements GLEventListener,
 		gl.glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 		gl.glShadeModel(GL_SMOOTH);
 		gl.glEnable(GL.GL_BLEND);
-		gl.glEnable(gl.GL_LIGHTING);
+//		gl.glEnable(gl.GL_LIGHTING);
 		gl.glEnable(gl.GL_COLOR_MATERIAL);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 	}

@@ -14,6 +14,20 @@ varying vec4 vTransformedVertex;
 
 varying vec4 v_Color;
 
+//http://chimera.labs.oreilly.com/books/1234000001814/ch08.html#ch08_id35940324
+vec3 getNormalFromMapInObjectSpace( const in sampler2D map, const in vec2 uv, const in vec3 normal, const in vec3 tangent ) {
+    highp vec3 tangentSpaceNormal = texture2D(map, uv).yzx * 2.0 - 1.0;
+    highp vec3 n = normalize(normal);
+    highp vec3 t = normalize(tangent);
+    highp vec3 crossed = cross(n, t);
+    highp vec3 b = normalize(crossed);
+    highp mat3 basis = mat3(n, t, b);
+    highp vec3 N = basis * tangentSpaceNormal;
+
+    return N;
+}
+
+
 
 vec4 ComputeLight (const in vec3 direction, const in vec4 lightColor, const in vec3 normal, const in vec3 halfVec, const in vec4 diffuse, const in vec4 specular, const in float shininess) {
 
@@ -32,7 +46,6 @@ void main() {
     vec4 light0posn = uDiffuseLightDirection;
     vec4 light0color = uDiffuseLightColor;
 
-    vec4 normalFromTexel = vec4( texture2D( sNormalMap, vTextureCoords ).xyz, 0.0 );
     vec4 texel = texture2D( sTexture, vTextureCoords );
 
     vec4 interpolatedNormal = vNormal;
@@ -52,5 +65,6 @@ void main() {
    	vec3 eyedirn = normalize(origin - dehomogenizedPosition);
 
    	vec3 half0 = normalize (direction0 + eyedirn) ;
-    gl_FragColor = ( v_Color + texel ) * ( uAmbientLightColor + ComputeLight(direction0, light0color, normal, half0, vec4( 0.5, 0.5, 0.5, 1.0), vec4( 1.0, 1.0, 1.0, 1.0 ), 1.0) );
+   	vec3 N = getNormalFromMapInObjectSpace( sNormalMap, vTextureCoords, normal,  vec3( -1.0, 0.0, 0.0 ) );
+    gl_FragColor = ( v_Color + texel ) * ( uAmbientLightColor + ComputeLight(direction0, light0color, N, half0, vec4( 0.5, 0.5, 0.5, 1.0), vec4( 1.0, 1.0, 1.0, 1.0 ), 1.0) );
 }

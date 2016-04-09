@@ -44,7 +44,7 @@ public class ShowMainMenuActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View view) {
 
         boolean enableVRMode = ((CheckBox) findViewById( R.id.chkVRMode ) ).isChecked();
-        boolean runInMultiplayer = ((CheckBox)findViewById( R.id.chkMultiplayer )).isChecked();
+        boolean runInMultiplayer = false;//((CheckBox)findViewById( R.id.chkMultiplayer )).isChecked();
         Intent intent = new Intent(this, PlayGameActivity.class);
         intent.putExtra( "VRMODE", enableVRMode );
         intent.putExtra( "MULTIPLAYER", runInMultiplayer );

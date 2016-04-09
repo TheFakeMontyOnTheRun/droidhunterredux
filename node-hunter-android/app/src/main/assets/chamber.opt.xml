@@ -1346,7 +1346,7 @@
 90.027
 64.281
 </size>
-<material dir='N'  color = '#a3a3a3'  texture = 'check.png'  /><material dir='E'  color = '#a3a3a3'  texture = 'check.png'  /><material dir='D'  color = '#a3a3a3'  texture = 'check.png'  /><material dir='S'  color = '#a3a3a3'  texture = 'check.png'  /><material dir='W'  color = '#a3a3a3'  texture = 'check.png'  /><material dir='U'  color = '#a3a3a3'  texture = 'check.png'  />
+<material dir='N'  color = '#a3a3a3'  texture = 'lena.png'  /><material dir='E'  color = '#a3a3a3'  texture = 'check.png'  /><material dir='D'  color = '#a3a3a3'  texture = 'check.png'  /><material dir='S'  color = '#a3a3a3'  texture = 'check.png'  /><material dir='W'  color = '#a3a3a3'  texture = 'check.png'  /><material dir='U'  color = '#a3a3a3'  texture = 'check.png'  />
 <sector><id>Locker3_Cube.042</id>
 <position>
 0.0
@@ -1838,7 +1838,7 @@
 101.924
 179.422
 </size>
-<material dir='N'  color = '#a3a3a3'  texture = 'lena.png'  /><material dir='E'  color = '#a3a3a3'  texture = 'lena.png'  /><material dir='D'  color = '#a3a3a3'  texture = 'lena.png'  /><material dir='S'  color = '#a3a3a3'  texture = 'lena.png'  /><material dir='W'  color = '#a3a3a3'  texture = 'lena.png'  /><material dir='U'  color = '#a3a3a3'  texture = 'lena.png'  />
+<material dir='N'  color = '#a3a3a3'  texture = 'check.png'  /><material dir='E'  color = '#a3a3a3'  texture = 'lena.png'  /><material dir='D'  color = '#a3a3a3'  texture = 'lena.png'  /><material dir='S'  color = '#a3a3a3'  texture = 'lena.png'  /><material dir='W'  color = '#a3a3a3'  texture = 'lena.png'  />
 <sector><id>Atrium_Cube.040</id>
 <position>
 0.0

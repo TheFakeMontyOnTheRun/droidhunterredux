@@ -88,6 +88,8 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     private float headAngleXY;
     int texCoordsPosition;
     int samplePosition;
+    int normalTextureId;
+	int normalTextureParam;
 	int textureId;
 
     public CardboardRenderer(Context context) {
@@ -185,7 +187,18 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 	    lightColorUniform = GLES20.glGetUniformLocation( defaultProgram, "uDiffuseLightColor" );
 	    lightDirectionUniform = GLES20.glGetUniformLocation( defaultProgram, "uDiffuseLightDirection" );
 
-        // Object first appears directly in front of user.
+	    normalTextureParam = GLES20.glGetUniformLocation( defaultProgram, "sNormalMap" );
+
+	    try {
+		    normalTextureId = -1;
+		    GLES20.glActiveTexture( GLES20.GL_TEXTURE1 );
+		    normalTextureId = loadTexture(context, BitmapFactory.decodeStream(context.getAssets().open("hexa.png")));
+		    GLES20.glActiveTexture( GLES20.GL_TEXTURE0 );
+	    } catch (IOException e) {
+		    e.printStackTrace();
+	    }
+
+	    // Object first appears directly in front of user.
         checkGLError("onSurfaceCreated");
 
         try {
@@ -409,8 +422,14 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 	    for ( Material mat : managers.keySet() ) {
 
 		    if ( mat.texture != null ) {
+			    GLES20.glActiveTexture(GLES20.GL_TEXTURE1);
+			    GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, normalTextureId);
+			    GLES20.glUniform1i(normalTextureParam, 1);
+
+
 			    GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
 			    GLES20.glUniform1i(samplePosition, 0);
+
 			    if ( textureIds.get( mat.texture ) == null ) {
 				    try {
 					    Log.d( "BZK3", "Loading texture " + mat.texture  );
@@ -426,8 +445,8 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 			    GLES20.glBindTexture( GLES20.GL_TEXTURE_2D, id.intValue() );
 			    checkGLError("binded texture");
 		    } else {
-			    GLES20.glActiveTexture(GLES20.GL_TEXTURE1);
-			    GLES20.glUniform1i(samplePosition, 1);
+			    GLES20.glActiveTexture(GLES20.GL_TEXTURE2);
+			    GLES20.glUniform1i(samplePosition, 2);
 		    }
 
 
