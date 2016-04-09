@@ -60,6 +60,12 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 
     private int positionParam;
     private int colorParam;
+    private int normalParam;
+
+	private int lightDirectionUniform;
+	private int lightColorUniform;
+	private int ambientLightUniform;
+
     private int modelViewProjectionParam;
 
     private br.odb.gameutils.math.Matrix camera = new br.odb.gameutils.math.Matrix( 4, 4 );
@@ -167,12 +173,17 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 
         positionParam = GLES20.glGetAttribLocation(defaultProgram, "a_Position");
         colorParam = GLES20.glGetAttribLocation(defaultProgram, "a_Color");
+        normalParam = GLES20.glGetAttribLocation(defaultProgram, "a_Normal");
         modelViewProjectionParam = GLES20.glGetUniformLocation(defaultProgram, "u_MVP");
 	    checkGLError("all other positions");
 	    texCoordsPosition = GLES20.glGetAttribLocation(defaultProgram, "aTexCoord");
 	    checkGLError("texCoordsPosition");
 	    samplePosition = GLES20.glGetUniformLocation( defaultProgram, "sTexture");
 	    checkGLError("samplePosition");
+
+	    ambientLightUniform = GLES20.glGetUniformLocation( defaultProgram, "uAmbientLightColor" );
+	    lightColorUniform = GLES20.glGetUniformLocation( defaultProgram, "uDiffuseLightColor" );
+	    lightDirectionUniform = GLES20.glGetUniformLocation( defaultProgram, "uDiffuseLightDirection" );
 
         // Object first appears directly in front of user.
         checkGLError("onSurfaceCreated");
@@ -304,6 +315,10 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
+	    GLES20.glUniform4fv(lightColorUniform, 1, new float[]{1.0f, 1.0f, 1.0f, 1.0f}, 0);
+	    GLES20.glUniform4fv(lightDirectionUniform, 1, new float[]{0.0f, 0.0f, 0.0f, 1.0f}, 0);
+	    GLES20.glUniform4fv( ambientLightUniform, 1, new float[] { 0.5f, 0.5f, 0.5f, 1.0f }, 0 );
+
         if ( ready ) {
             // Build the ModelView and ModelViewProjection matrices
             float[] perspective = eye.getPerspective(Z_NEAR, Z_FAR);
@@ -418,7 +433,7 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 
             manager = managers.get( mat );
 		    checkGLError("before drew meshes for material " + mat );
-            manager.draw(positionParam, colorParam, -1, mat.texture == null ? -1 : texCoordsPosition);
+            manager.draw(positionParam, colorParam, normalParam, mat.texture == null ? -1 : texCoordsPosition);
 		    checkGLError("drew meshes for material " + mat );
         }
     }
@@ -552,7 +567,7 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 
         manager = managers.get(face.material );
         Vec3 normal = face.makeNormal();
-        float[] normalData = new float[]{ normal.x, normal.y, normal.z };
+        float[] normalData = new float[]{ normal.x, normal.y, normal.z, 0.0f };
 
 	    if ( face.material.texture != null ) {
 		    Log.d( "bzk3", "texture");

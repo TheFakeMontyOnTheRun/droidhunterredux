@@ -15,7 +15,7 @@ public class GLESVertexArrayManager {
     private FloatBuffer colorBuffer;
     private FloatBuffer vertexBuffer;
     private FloatBuffer textureBuffer;
-//    private FloatBuffer normalBuffer;
+    private FloatBuffer normalBuffer;
     private int numFaces;
     boolean ready;
 
@@ -30,7 +30,7 @@ public class GLESVertexArrayManager {
         capacity = numFaces * (3 * 3 * 4);
 
         vertexBuffer = ByteBuffer.allocateDirect(capacity).order(ByteOrder.nativeOrder()).asFloatBuffer();
-//        normalBuffer = ByteBuffer.allocateDirect(capacity).order(ByteOrder.nativeOrder()).asFloatBuffer();
+        normalBuffer = ByteBuffer.allocateDirect(4 * capacity / 3).order(ByteOrder.nativeOrder()).asFloatBuffer();
         colorBuffer = ByteBuffer.allocateDirect(4 * capacity / 3 ).order(ByteOrder.nativeOrder()).asFloatBuffer();
 	    textureBuffer = ByteBuffer.allocateDirect(2 * capacity / 3 ).order(ByteOrder.nativeOrder()).asFloatBuffer();
     }
@@ -38,7 +38,7 @@ public class GLESVertexArrayManager {
     public void uploadToGPU() {
 
         vertexBuffer.position(0);
-//        normalBuffer.position(0);
+        normalBuffer.position(0);
         colorBuffer.position(0);
 	    textureBuffer.position(0);
         ready = true;
@@ -51,11 +51,11 @@ public class GLESVertexArrayManager {
         }
         GLES20.glEnableVertexAttribArray(vertexHandle);
         GLES20.glEnableVertexAttribArray(colorHandle);
-//        GLES20.glEnableVertexAttribArray(normalHandle);
+        GLES20.glEnableVertexAttribArray(normalHandle);
 
         GLES20.glVertexAttribPointer(vertexHandle, 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
         GLES20.glVertexAttribPointer(colorHandle, 4, GLES20.GL_FLOAT, false, 0, colorBuffer);
-//        GLES20.glVertexAttribPointer(normalHandle, 3, GLES20.GL_FLOAT, false, 0, normalBuffer);
+        GLES20.glVertexAttribPointer(normalHandle, 4, GLES20.GL_FLOAT, false, 0, normalBuffer);
 
         if (textureHandle != -1) {
             textureBuffer.position(0);
@@ -70,9 +70,7 @@ public class GLESVertexArrayManager {
 
         GLES20.glDisableVertexAttribArray(vertexHandle);
         GLES20.glDisableVertexAttribArray(colorHandle);
-//        GLES20.glDisableVertexAttribArray(normalHandle);
-
-
+        GLES20.glDisableVertexAttribArray(normalHandle);
     }
 
     final public void pushIntoFrameAsStatic(float[] vertexData, float[] normalData, float[] colorData, float[] textureData) {
@@ -85,7 +83,7 @@ public class GLESVertexArrayManager {
 
                 for (int c = 0; c < (vertexData.length / 3); ++c) {
                     colorBuffer.put(colorData);
-//                    normalBuffer.put( normalData );
+                    normalBuffer.put( normalData );
                 }
 
 	            textureBuffer.put( textureData );
