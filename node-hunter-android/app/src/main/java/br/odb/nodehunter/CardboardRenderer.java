@@ -91,6 +91,8 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
     int normalTextureId;
 	int normalTextureParam;
 	int textureId;
+	private float flashlightY;
+	private float flashlightX;
 
     public CardboardRenderer(Context context) {
         this.context = context;
@@ -329,7 +331,7 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
 	    GLES20.glUniform4fv(lightColorUniform, 1, new float[]{1.0f, 1.0f, 1.0f, 1.0f}, 0);
-	    GLES20.glUniform4fv(lightDirectionUniform, 1, new float[]{0.0f, 0.0f, 0.0f, 1.0f}, 0);
+	    GLES20.glUniform4fv(lightDirectionUniform, 1, new float[]{flashlightX, flashlightY, -1.0f, 1.0f}, 0);
 	    GLES20.glUniform4fv( ambientLightUniform, 1, new float[] { 0.5f, 0.5f, 0.5f, 1.0f }, 0 );
 
         if ( ready ) {
@@ -593,4 +595,9 @@ public class CardboardRenderer implements CardboardView.StereoRenderer, SceneRen
 	    }
         manager.pushIntoFrameAsStatic(face.getVertexData(), normalData, face.material.mainColor.getFloatData(),face.getTextureCoordinates());
     }
+
+	public void setFlashlightDirection(float x, float y) {
+		this.flashlightX = x;
+		this.flashlightY = y;
+	}
 }

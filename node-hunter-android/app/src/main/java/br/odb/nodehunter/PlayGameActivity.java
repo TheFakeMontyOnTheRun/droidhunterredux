@@ -3,6 +3,8 @@ package br.odb.nodehunter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.google.vrtoolkit.cardboard.CardboardActivity;
 import com.google.vrtoolkit.cardboard.CardboardView;
@@ -39,6 +41,18 @@ public class PlayGameActivity extends CardboardActivity implements FileServerDel
 
         initGameEngine( getIntent().getBooleanExtra( "VRMODE", false ), getIntent().getBooleanExtra( "MULTIPLAYER", false ) );
     }
+
+	public boolean dispatchGenericMotionEvent (MotionEvent motionEvent) {
+
+		super.dispatchGenericMotionEvent( motionEvent );
+
+		float x = motionEvent.getAxisValue( MotionEvent.AXIS_Z );
+		float y = motionEvent.getAxisValue( MotionEvent.AXIS_RZ );
+
+		renderer.setFlashlightDirection( x, y );
+
+		return false;
+	}
 
     private void initGameEngine( boolean shouldUseVRMode, boolean runInMultiplayer ) {
         cardboardView.setVRModeEnabled( shouldUseVRMode );

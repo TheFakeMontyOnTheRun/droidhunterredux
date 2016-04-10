@@ -42,29 +42,33 @@ vec4 ComputeLight (const in vec3 direction, const in vec4 lightColor, const in v
 
 void main() {
 
-    vec3 direction0 = vec3( -1.0, 0.0, 0.0 );
-    vec4 light0posn = uDiffuseLightDirection;
-    vec4 light0color = uDiffuseLightColor;
-
+    vec4 finalColor = vec4( 0.0, 0.0, 0.0, 1.0 );
     vec4 texel = texture2D( sTexture, vTextureCoords );
-
-    vec4 interpolatedNormal = vNormal;
-
+    vec3 N = getNormalFromMapInObjectSpace( sNormalMap, vTextureCoords, normalize(vNormal.xyz),  vec3( -1.0, 0.0, 0.0 ) );
+    vec3 direction0 = vec3( -1.0, 0.0, 0.0 );
     vec3 dehomogenizedPosition = vTransformedVertex.xyz / vTransformedVertex.w;
-
-    vec3 normal = normalize(interpolatedNormal.xyz);
-
-    if ( light0posn.w == 1.0 ) {
-        vec3 position0 = light0posn.xyz / light0posn.w;
-        direction0 = normalize (position0 - dehomogenizedPosition);
-   	} else {
-   		direction0 = normalize (vec3(light0posn.x, light0posn.y, light0posn.z ) );
-   	}
-
     const vec3 origin = vec3(0,0,0);
-   	vec3 eyedirn = normalize(origin - dehomogenizedPosition);
 
-   	vec3 half0 = normalize (direction0 + eyedirn) ;
-   	vec3 N = getNormalFromMapInObjectSpace( sNormalMap, vTextureCoords, normal,  vec3( -1.0, 0.0, 0.0 ) );
-    gl_FragColor = ( v_Color + texel ) * ( uAmbientLightColor + ComputeLight(direction0, light0color, N, half0, vec4( 0.5, 0.5, 0.5, 1.0), vec4( 1.0, 1.0, 1.0, 1.0 ), 1.0) );
+    vec4 light0posn;
+    vec4 light0color;
+    vec3 eyedirn;
+    vec3 half0;
+
+
+        light0posn = uDiffuseLightDirection;//normalize( u_MVP * uPointLights[ 0 ] );
+        light0color = uDiffuseLightColor;
+
+        if ( light0posn.w == 1.0 ) {
+            vec3 position0 = light0posn.xyz / light0posn.w;
+            direction0 = normalize (position0 - dehomogenizedPosition);
+        } else {
+            direction0 = normalize (vec3(light0posn.x, light0posn.y, light0posn.z ) );
+        }
+
+        eyedirn = normalize(origin - dehomogenizedPosition);
+        half0 = normalize (direction0 + eyedirn) ;
+
+        finalColor += ( v_Color + texel ) * ( uAmbientLightColor + ComputeLight(direction0, light0color, N, half0, vec4( 0.5, 0.5, 0.5, 1.0), vec4( 1.0, 1.0, 1.0, 1.0 ), 1.0) );
+
+    gl_FragColor = finalColor;
 }
